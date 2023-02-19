@@ -30,16 +30,23 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
   - Mac arm64 (Apple Silicon)
 
 ## User guide
-- Before using Dobkap you will need to configure your brokerage account to send daily activity
-statements via email.
+- Before using Dobkapapp you will need to configure your brokerage account to send daily activity statements via email. This is how to do it for Interactive Brokers:
+  <img src = "docs/ibkr-setup-1.png" width = 600>
+  <img src = "docs/ibkr-setup-2.png" width = 600>
+  <img src = "docs/ibkr-setup-3.png" width = 600>
 - Download and install a Dobkapapp binary suitable for your platform
+  - If you using macOS and see an error such as "App is damaged and can't be opened", it could be because the binary is quarantined. Try opening the terminal and running a command like `xattr -d com.apple.quarantine /path/to/dobkapapp.app`.
 - Open Dobkapapp
 - Configure mailbox settings and taxpayer settings
   - Initially the mailbox date cursor will be set to today. Move this a few days into the past
   (depending on how many days of activity statements you would like to process on the first sync)
+  <img src = "docs/screenshot1.png" width = 932>
+  <img src = "docs/screenshot2.png" width = 932>
 - Add an importer and configure importer settings
+  <img src = "docs/screenshot3.png" width = 932>
 - Dobkapapp now has all the information it needs. Click 'sync' to download and process activity
 statements
+  <img src = "docs/screenshot4.png" width = 718>
 - Go to the 'filings' tab to see tax filings produced by Dobkapapp. Click 'Save as' to export
 a filing ready to be uploaded to ePorezi
 - Click 'sync' again to process new activity statements. Dobkapapp should remember which activity

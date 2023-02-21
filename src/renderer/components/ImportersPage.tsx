@@ -1,8 +1,9 @@
 import { Importer, ImporterType } from '../../common/ipc-types'
-import { Button, ButtonGroup, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Pagination, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material'
+import { Button, ButtonGroup, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Pagination, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
 import ipcContextApi from '../../renderer/ipc-context-api'
 import React, { useEffect, useMemo, useState } from 'react'
 import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt'
+import HelpIcon from '@mui/icons-material/Help'
 
 interface ImportersPageProps {
   importers: Array<Importer>
@@ -26,6 +27,7 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
   const [fromFilter, setFromFilter] = useState(props.initialImporter.fromFilter)
   const [subjectFilter, setSubjectFilter] = useState(props.initialImporter.subjectFilter)
   const [attachmentRegex, setAttachmentRegex] = useState(props.initialImporter.attachmentRegex)
+  const [paymentNotes, setPaymentNotes] = useState(props.initialImporter.paymentNotes)
   return <div>
     <Dialog open={true} onClose={props.onClose} fullWidth>
       <DialogTitle>
@@ -38,6 +40,24 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
           <TextField label="From filter" value={fromFilter} onChange={e => setFromFilter(e.target.value)} />
           <TextField label="Subject filter" value={subjectFilter} onChange={e => setSubjectFilter(e.target.value)} />
           <TextField label="Attachment regex" value={attachmentRegex} onChange={e => setAttachmentRegex(e.target.value)} />
+          <FormControl variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-payment-notes">Payment Notes</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-payment-notes"
+              label="Payment Notes"
+              value={paymentNotes}
+              onChange={e => setPaymentNotes(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton edge="end">
+                    <Tooltip title="Description of how you received payment. This will be included in each filing" placement="bottom-end">
+                      <HelpIcon />
+                    </Tooltip>
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <FormControl size="small">
             <InputLabel>Import format</InputLabel>
             <Select value="IbkrCsv" label="Import format">
@@ -152,7 +172,7 @@ export const ImportersPage = (props: ImportersPageProps) => {
           taxpayerProfileId: 1,
           fromFilter: '',
           subjectFilter: '',
-          paymentNotes: '',
+          paymentNotes: 'Isplata na brokerski racun',
           attachmentRegex: '',
         })
       }}>Add importer</Button>

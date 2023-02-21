@@ -20,7 +20,7 @@ export const TaxpayerProfilePage = (props: Props) => {
   return <Container>
     <Stack spacing={1}>
       <h2 style={{ marginBottom: 0}}>Taxpayer</h2>
-      <Alert severity="warning">These details will be copied to each filing</Alert>
+      <Alert severity="warning">These details will be included in each filing</Alert>
       <TextField label="JMBG" value={jmbg} onChange={e => setJmbg(e.target.value)} />
       <TextField label="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} />
       <FormControl variant="outlined">

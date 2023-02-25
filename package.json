@@ -68,7 +68,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.3",
     "better-sqlite3": "^8.0.1",
-    "dobkap": "^0.14.0",
+    "dobkap": "^0.15.0",
     "electron-squirrel-startup": "^1.0.0",
     "mailparser-mit": "^1.0.0",
     "node-imap": "^0.9.6",

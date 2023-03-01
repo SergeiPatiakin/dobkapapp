@@ -3,6 +3,7 @@ import path from 'path'
 import { app } from 'electron'
 import { FilingStatus, ImporterType, Mailbox, MailboxCursor, ReportStatus, RunSql } from '../common/ipc-types'
 import { deserializeMailboxCursor, serializeMailboxCursor } from '../common/mailbox-cursor'
+import { PassiveIncomeType } from 'dobkap/lib/passive-income'
 
 const databasePath = path.join(app.getPath('userData'), 'db.sqlite')
 const db = new Database(databasePath)
@@ -143,8 +144,16 @@ export const migrateDatabase = () => {
   ).all() as Array<{id: number}>
   const dbMigrationVersion = Math.max(...r.map(x => x.id))
 
-  // Logic for migration 2 and above goes here
-  if (dbMigrationVersion !== 1) {
+  if (dbMigrationVersion < 2) {
+    db.prepare(
+      'ALTER TABLE filings ADD COLUMN "type" TEXT NOT NULL DEFAULT \'dividend\''
+    ).run()
+    db.prepare(
+      'INSERT INTO dobkapman_migrations (id, name) VALUES (2, \'filing-type\')'
+    ).run()
+  }
+  // Logic for migration 3 and above goes here
+  if (dbMigrationVersion > 2) {
     throw new Error('Database corrupted')
   }
 }
@@ -226,9 +235,10 @@ export const deleteReport = (id: number) => {
 export const getFilings = () => {
   return db.prepare(`
     SELECT
-      id,
+      id AS id,
+      type AS type,
       report_id AS reportId,
-      status,
+      status AS status,
       paying_entity AS payingEntity,
       filing_deadline AS filingDeadline,
       tax_payable AS taxPayable
@@ -236,6 +246,7 @@ export const getFilings = () => {
     ORDER BY id DESC
   `).all({}) as Array<{
     id: number,
+    type: PassiveIncomeType
     reportId: number,
     status: FilingStatus,
     payingEntity: string,
@@ -259,6 +270,7 @@ export const updateFiling = (filing: {
 }
 
 export const createFiling = (filing: {
+  type: PassiveIncomeType
   reportId: number
   payingEntity: string
   filingDeadline: string
@@ -266,17 +278,20 @@ export const createFiling = (filing: {
 }) => {
   return db.prepare(`
     INSERT INTO filings (
+      type,
       report_id,
       paying_entity,
       filing_deadline,
       tax_payable
     ) VALUES (
+      $type,
       $reportId,
       $payingEntity,
       $filingDeadline,
       $taxPayable
     ) RETURNING id
   `).get({
+    type: filing.type,
     reportId: filing.reportId,
     payingEntity: filing.payingEntity,
     filingDeadline: filing.filingDeadline,

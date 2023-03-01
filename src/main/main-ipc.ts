@@ -8,6 +8,7 @@ import { fireAndForget } from '../common/helpers'
 import { getFilingContent, getReportPath, getTechnicalConf, saveFilingContent, saveReportContent, updateTechnicalConf } from './filesystem'
 import { createCurrencyService, createHolidayService, DividendInfo, fillOpoForm, getDividendIncomeInfo, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
 import { decodeHolidayConf } from '../common/holiday-conf'
+import { getPassiveIncomeFilingInfo } from 'dobkap/lib/passive-income'
 
 const jobStore = new JobStore()
 
@@ -192,8 +193,14 @@ const handlers: IpcHandlerFns = {
               continue
             }
             for (const dividendInfo of dividendInfos) {
-              const dividendIncomeInfo = await getDividendIncomeInfo(currencyService, dividendInfo)
-              const filingDeadline = getFilingDeadline(holidayService, dividendIncomeInfo.paymentDate)
+              const passiveIncomeFilingInfo = await getPassiveIncomeFilingInfo(
+                currencyService,
+                dividendInfo,
+              )
+              const filingDeadline = getFilingDeadline(
+                holidayService,
+                passiveIncomeFilingInfo.incomeDate
+              )
               const opoData: OpoData = {
                 jmbg: taxpayerProfile.jmbg,
                 fullName: taxpayerProfile.fullName,
@@ -204,15 +211,16 @@ const handlers: IpcHandlerFns = {
                 email: taxpayerProfile.emailAddress,
                 realizationMethod: importer?.paymentNotes ?? '',
                 filingDeadline,
-                dividendIncomeInfo,
+                passiveIncomeFilingInfo,
               }
               const opoForm = fillOpoForm(opoData)
 
               const { id: filingId } = createFiling({
                 reportId: report.id,
-                payingEntity: dividendIncomeInfo.payingEntity,
+                type: passiveIncomeFilingInfo.type,
+                payingEntity: passiveIncomeFilingInfo.payingEntity,
                 filingDeadline: filingDeadline.format('YYYY-MM-DD'),
-                taxPayable: dividendIncomeInfo.taxPayable.cents.toString(),
+                taxPayable: passiveIncomeFilingInfo.taxPayable.cents.toString(),
               })
 
               saveFilingContent(filingId, opoForm)

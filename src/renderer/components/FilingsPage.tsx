@@ -48,6 +48,7 @@ export const FilingsPage = (props: FilingsPageProps) => {
         <TableRow>
           <TableCell style={{ width: 50 }}><b>Id</b></TableCell>
           <TableCell><b>Status</b></TableCell>
+          <TableCell style={{ width: 50 }}><b>Type</b></TableCell>
           <TableCell><b>Paying Entity</b></TableCell>
           <TableCell align="right"><b>Filing Deadline</b></TableCell>
           <TableCell align="right"><b>Tax Payable</b></TableCell>
@@ -74,6 +75,7 @@ export const FilingsPage = (props: FilingsPageProps) => {
               </Select>
             </FormControl>
           </TableCell>
+          <TableCell>{f.type}</TableCell>
           <TableCell>{f.payingEntity}</TableCell>
           <TableCell align="right">{f.filingDeadline}</TableCell>
           <TableCell align="right">{formatRsdcAmount(f.taxPayable)}</TableCell>

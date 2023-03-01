@@ -1,3 +1,4 @@
+import { PassiveIncomeType } from 'dobkap/lib/passive-income'
 import type { BrowserWindow } from 'electron'
 import { HolidayConf } from './holiday-conf'
 import { DateString } from './primitive-types'
@@ -18,6 +19,7 @@ export type FilingStatus = 'init' | 'filed' | 'paid'
 export type Filing = {
   id: number,
   reportId: number,
+  type: PassiveIncomeType,
   status: FilingStatus,
   payingEntity: string,
   filingDeadline: DateString,

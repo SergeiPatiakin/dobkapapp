@@ -47,7 +47,9 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
 - Dobkapapp now has all the information it needs. Click 'sync' to download and process activity
 statements
   <img src = "docs/screenshot4.png" width = 718>
-- Go to the 'filings' tab to see tax filings produced by Dobkapapp. Click 'Save as' to export
-a filing ready to be uploaded to ePorezi
-- Click 'sync' again to process new activity statements. Dobkapapp should remember which activity
+- Go to the 'filings' tab to see tax filings produced by Dobkapapp. Click 'Save as' to export a filing ready to be uploaded to ePorezi
+  <img src = "docs/screenshot5.png" width = 718>
+- Use the status dropdowns to keep track of which filings have been filed and paid
+  <img src = "docs/screenshot6.png" width = 718>
+- Next time you open the app, simply click 'sync' again to process new activity statements. Dobkapapp should remember which activity
 statements it has already processed to avoid duplicate filings

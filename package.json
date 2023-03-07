@@ -1,6 +1,6 @@
 {
   "name": "dobkapapp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Desktop application to automate dividend tax filings",
   "main": ".webpack/main",
   "scripts": {

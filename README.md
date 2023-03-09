@@ -1,7 +1,7 @@
 ## Dobkapapp
 
-Dobkapapp is a desktop application for automating PP-OPO dividend tax filings in Serbia. It can
-import dividend payout data from InteractiveBrokers activity statements in your email inbox and
+Dobkapapp is a desktop application for automating PP-OPO passive income tax filings in Serbia. It can
+import dividend and interest data from InteractiveBrokers activity statements in your email inbox and
 produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
 
 <img src = "docs/workflow-diagram.png" width = 442>
@@ -18,10 +18,10 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
 ### Tax code
   - Handles withholding tax deductions
   - Calculates filing/payment deadlines based on weekends and public holidays
-  - Supports EUR, USD and GBP dividends by scraping exchange rates off the NBS public website
-  - Supports SGD dividends by calculating a cross rate (scraping the NBS public website and
+  - Supports EUR, USD and GBP currencies by scraping exchange rates off the NBS public website
+  - Supports SGD currency by calculating a cross rate (scraping the NBS public website and
   using the Monetary Authoritary of Singapore API)
-  - Supports MXN dividends by calculating a cross rate (scraping the NBS public website and
+  - Supports MXN currency by calculating a cross rate (scraping the NBS public website and
   using the Banco de Mexico API)
 
 ### Platforms

@@ -8,7 +8,7 @@ on:
   push:
 
 jobs:
-  build-macos:
+  build-macos-x64:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -34,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: darwin-binary
-          path: out/make/zip/darwin/arm64/**
+          path: out/make/**

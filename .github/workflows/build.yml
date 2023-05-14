@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: macos-x64-binary
-          path: out/make/darwin/x64/**
+          path: out/make/zip/darwin/x64/**
 
   build-windows-x64:
     runs-on: windows-latest
@@ -69,4 +69,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: windows-x64-binary
-          path: out/**
+          path: out/make/squirrel.windows/x64/**

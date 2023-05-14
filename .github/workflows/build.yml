@@ -8,7 +8,7 @@ on:
   push:
 
 jobs:
-  build:
+  build-macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,3 +23,15 @@ jobs:
       
       - name: Test
         run: npm run test
+      
+      - name: Lint
+        run: npm run lint
+
+      - name: Make
+        run: npm run make
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: darwin-binary
+          path: out/make/zip/darwin/arm64/**

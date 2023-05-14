@@ -1,0 +1,25 @@
+name: Build
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.20.0
+          cache: "npm"
+      
+      - name: Install NPM dependencies
+        run: npm ci
+      
+      - name: Test
+        run: npm run test

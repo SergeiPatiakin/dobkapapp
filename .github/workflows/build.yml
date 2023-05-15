@@ -66,7 +66,7 @@ jobs:
         run: npm run make
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-x64-binary
           path: out/make/squirrel.windows/x64/**

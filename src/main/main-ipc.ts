@@ -6,7 +6,7 @@ import { JobStore } from './job-store'
 import { getSearchCriteria, ImapClient, parseMessage } from './imap-utils'
 import { fireAndForget } from '../common/helpers'
 import { getFilingContent, getReportPath, getTechnicalConf, saveFilingContent, saveReportContent, updateTechnicalConf } from './filesystem'
-import { createCurrencyService, createHolidayService, DividendInfo, fillOpoForm, getDividendIncomeInfo, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
+import { createCurrencyService, createHolidayService, DividendInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
 import { decodeHolidayConf } from '../common/holiday-conf'
 import { getPassiveIncomeFilingInfo } from 'dobkap/lib/passive-income'
 
@@ -96,6 +96,8 @@ const handlers: IpcHandlerFns = {
               if (!importersByMessageUid.has(imapMessageUid)) {
                 importersByMessageUid.set(imapMessageUid, [importer.id])
               } else {
+                // map.get must return non-null value since the key exists in the map
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 importersByMessageUid.get(imapMessageUid)!.push(importer.id)
               }
             }
@@ -118,6 +120,7 @@ const handlers: IpcHandlerFns = {
               const emailInfo = await parseMessage(rawMessage)
 
               for (const importerId of (importersByMessageUid.get(uid) ?? [])) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 const importer = importers.find(im => im.id === importerId)!
                 const attachmentRegex = RegExp(importer.attachmentRegex, 'i')
                 for (const attachment of emailInfo.attachments) {

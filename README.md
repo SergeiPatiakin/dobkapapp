@@ -54,5 +54,6 @@ statements
 - Next time you open the app, simply click 'sync' again to process new activity statements. Dobkapapp should remember which activity
 statements it has already processed to avoid duplicate filings
 - When a filing has been submitted to ePorezi, mark the filing as 'Filed' and enter the payment reference
+
   <img src = "docs/screenshot7.png" width = 234>
-- When a filing has been paid, mark it as 'paid'
+- When a filing has been paid, mark it as 'Paid'

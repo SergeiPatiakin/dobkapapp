@@ -145,6 +145,7 @@ export const migrateDatabase = () => {
   const dbMigrationVersion = Math.max(...r.map(x => x.id))
 
   if (dbMigrationVersion < 2) {
+    // Logic for migration 2
     db.prepare(
       'ALTER TABLE filings ADD COLUMN "type" TEXT NOT NULL DEFAULT \'dividend\''
     ).run()
@@ -152,8 +153,17 @@ export const migrateDatabase = () => {
       'INSERT INTO dobkapman_migrations (id, name) VALUES (2, \'filing-type\')'
     ).run()
   }
-  // Logic for migration 3 and above goes here
-  if (dbMigrationVersion > 2) {
+  if (dbMigrationVersion < 3) {
+    // Logic for migration 3
+    db.prepare(
+      'ALTER TABLE filings ADD COLUMN tax_payment_reference TEXT NOT NULL DEFAULT \'\''
+    ).run()
+    db.prepare(
+      'INSERT INTO dobkapman_migrations (id, name) VALUES (3, \'tax-payment-reference\')'
+    ).run()
+  }
+  // Logic for migration 4 and above goes here
+  if (dbMigrationVersion > 3) {
     throw new Error('Database corrupted')
   }
 }
@@ -241,7 +251,8 @@ export const getFilings = () => {
       status AS status,
       paying_entity AS payingEntity,
       filing_deadline AS filingDeadline,
-      tax_payable AS taxPayable
+      tax_payable AS taxPayable,
+      tax_payment_reference AS taxPaymentReference
     FROM filings
     ORDER BY id DESC
   `).all({}) as Array<{
@@ -251,21 +262,25 @@ export const getFilings = () => {
     status: FilingStatus,
     payingEntity: string,
     filingDeadline: string,
-    taxPayable: number
+    taxPayable: number,
+    taxPaymentReference: string,
   }>
 }
 
 export const updateFiling = (filing: {
   id: number,
   status: FilingStatus,
+  taxPaymentReference: string,
 }) => {
   return db.prepare(`
     UPDATE filings SET
-      status = $status
+      status = $status,
+      tax_payment_reference = $taxPaymentReference
     WHERE id=$id
   `).run({
     id: filing.id,
     status: filing.status,
+    taxPaymentReference: filing.taxPaymentReference,
   })
 }
 

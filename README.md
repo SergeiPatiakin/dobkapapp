@@ -7,15 +7,15 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
 <img src = "docs/workflow-diagram.png" width = 442>
 
 ## Features
-### Transports
-  - Reads from your email inbox through IMAP
-  - Supports optional filtering by sender, subject and attachment name
-  - Can handle statements from multiple brokerage accounts in the same inbox
 
-### Input formats
-  - Supports Interactive Brokers CSV format
+- Supports Interactive Brokers CSV format
+- Reads from your email inbox through IMAP
+- Supports optional filtering by sender, subject and attachment name
+- Can handle statements from multiple brokerage accounts in the same inbox
+- Allows you to track filing statuses
+- Allows you to track payment references between filing and paying
 
-### Tax code
+### Tax code features
   - Handles withholding tax deductions
   - Calculates filing/payment deadlines based on weekends and public holidays
   - Supports EUR, USD and GBP currencies by scraping exchange rates off the NBS public website
@@ -35,7 +35,7 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
   <img src = "docs/ibkr-setup-2.png" width = 600>
   <img src = "docs/ibkr-setup-3.png" width = 600>
 - Download and install a Dobkapapp binary suitable for your platform
-  - If you using macOS and see an error such as "App is damaged and can't be opened", it could be because the binary is quarantined. Try opening the terminal and running a command like `xattr -d com.apple.quarantine /path/to/dobkapapp.app`.
+  - If you using macOS and see an error such as 'App is damaged and can't be opened', it could be because the binary is quarantined. Try opening the terminal and running a command like `xattr -d com.apple.quarantine /path/to/dobkapapp.app`.
 - Open Dobkapapp
 - Configure mailbox settings and taxpayer settings
   - Initially the mailbox date cursor will be set to today. Move this a few days into the past
@@ -53,3 +53,7 @@ statements
   <img src = "docs/screenshot6.png" width = 718>
 - Next time you open the app, simply click 'sync' again to process new activity statements. Dobkapapp should remember which activity
 statements it has already processed to avoid duplicate filings
+- When a filing has been submitted to ePorezi, mark the filing as 'Filed' and enter the payment reference
+
+  <img src = "docs/screenshot7.png" width = 234>
+- When a filing has been paid, mark it as 'Paid'

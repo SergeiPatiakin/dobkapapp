@@ -1,9 +1,31 @@
 import { formatRsdcAmount } from '../../common/helpers'
 import { Filing, FilingFilter, FilingStatus, Report } from '../../common/ipc-types'
-import { Button, ButtonGroup, Container, FormControl, MenuItem, Pagination, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  FormControl,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Pagination,
+  Select,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  useTheme,
+} from '@mui/material'
 import ipcContextApi from '../../renderer/ipc-context-api'
 import React, { useEffect, useMemo, useState } from 'react'
 import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt'
+import DownloadIcon from '@mui/icons-material/Download'
+import TrashIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import { FilingEditDialog } from './FilingEditDialog'
 
 interface FilingsPageProps {
   reports: Array<Report>
@@ -12,6 +34,99 @@ interface FilingsPageProps {
 }
 
 const PAGE_SIZE = 20
+
+type FilingsRowProps = {
+  filing: Filing
+  openFilingEditDialog: () => void
+  invalidateFilings: () => void
+}
+
+const FilingsRow = (props: FilingsRowProps) => {
+  const theme = useTheme()
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<HTMLElement | null>(null)
+  const menuOpen = Boolean(menuAnchorEl)
+  return <TableRow>
+    <TableCell>{props.filing.id}</TableCell>
+    <TableCell>
+      <FormControl size="small">
+        <Select
+          value={props.filing.status}
+          sx={{ minWidth: 90 }}
+          onChange={async e => {
+            const newStatus = e.target.value as FilingStatus
+            await ipcContextApi.updateFiling({...props.filing, status: newStatus})
+            props.invalidateFilings()
+          }
+        }>
+          <MenuItem value='init'>Initial</MenuItem>
+          <MenuItem value='filed'>Filed</MenuItem>
+          <MenuItem value='paid'>Paid</MenuItem>
+        </Select>
+      </FormControl>
+    </TableCell>
+    <TableCell>{props.filing.type}</TableCell>
+    <TableCell>{props.filing.payingEntity}</TableCell>
+    <TableCell align="right">{props.filing.filingDeadline}</TableCell>
+    <TableCell align="right">{formatRsdcAmount(props.filing.taxPayable)}</TableCell>
+    <TableCell align="right">{props.filing.taxPaymentReference || '-'}</TableCell>
+    <TableCell align="right">
+      <ButtonGroup>
+        <Button onClick={e => { setMenuAnchorEl(e.currentTarget) }}>
+          Actions
+        </Button>
+        <Menu
+          open={menuOpen}
+          anchorEl={menuAnchorEl}
+          onClose={() => setMenuAnchorEl(null)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <MenuItem
+            onClick={async () => {
+              await ipcContextApi.exportFiling(props.filing.id)
+              setMenuAnchorEl(null)
+            }}
+          >
+            <ListItemIcon>
+              <DownloadIcon />
+            </ListItemIcon>
+            <ListItemText>Save As...</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={() => {
+            props.openFilingEditDialog()
+            setMenuAnchorEl(null)
+          }}>
+            <ListItemIcon>
+              <EditIcon />
+            </ListItemIcon>
+            <ListItemText>Edit</ListItemText>
+          </MenuItem>
+          <MenuItem
+            onClick={async () => {
+              await ipcContextApi.deleteFiling(props.filing.id)
+              setMenuAnchorEl(null)
+            }}
+          >
+            <ListItemIcon style={{ color: theme.palette.error.dark }}>
+              <TrashIcon />
+            </ListItemIcon>
+            <ListItemText style={{ color: theme.palette.error.dark }}>Delete</ListItemText>
+          </MenuItem>
+        </Menu>
+      </ButtonGroup>
+    </TableCell>
+  </TableRow>
+}
+
+type FilingEditDialogState = 
+| { visible: false }
+| { visible: true, filing: Filing }
 
 export const FilingsPage = (props: FilingsPageProps) => {
   const [filter, setFilter] = useState<FilingFilter>('unpaid')
@@ -29,14 +144,26 @@ export const FilingsPage = (props: FilingsPageProps) => {
     () => Math.max(1, Math.ceil(filteredFilings.length / PAGE_SIZE)),
     [filteredFilings],
   )
+  const [filingEditDialogState, setFilingEditDialogState] =
+    useState<FilingEditDialogState>({ visible: false })
+
   useEffect(() => {
     if (page > numPages){
       setPage(numPages)
     }
   }, [page, numPages])
 
+
+
   return <Container>
     <h2 style={{ marginBottom: 0}}>Filings</h2>
+    {filingEditDialogState.visible &&
+      <FilingEditDialog
+        filing={filingEditDialogState.filing}
+        invalidateFilings={props.invalidateFilings}
+        onClose={() => setFilingEditDialogState({ visible: false })}
+      />
+    }
     <FormControl size="small">
       <Select value={filter} onChange={e => setFilter(e.target.value as FilingFilter)}>
         <MenuItem value='unpaid'>Unpaid</MenuItem>
@@ -50,50 +177,27 @@ export const FilingsPage = (props: FilingsPageProps) => {
           <TableCell><b>Status</b></TableCell>
           <TableCell style={{ width: 50 }}><b>Type</b></TableCell>
           <TableCell><b>Paying Entity</b></TableCell>
-          <TableCell align="right"><b>Filing Deadline</b></TableCell>
+          <TableCell align="right"><b>Deadline</b></TableCell>
           <TableCell align="right"><b>Tax Payable</b></TableCell>
-          <TableCell align="right"><b>Actions</b></TableCell>
+          <TableCell align="right"><b>Payment Ref</b></TableCell>
+          <TableCell align="right"></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {displayFilings.map((f, fIdx) => <TableRow key={fIdx}>
-          <TableCell>{f.id}</TableCell>
-          <TableCell>
-            <FormControl size="small">
-              <Select
-                value={f.status}
-                sx={{ minWidth: 90 }}
-                onChange={async e => {
-                  const newStatus = e.target.value as FilingStatus
-                  await ipcContextApi.updateFiling({...f, status: newStatus})
-                  props.invalidateFilings()
-                }
-              }>
-                <MenuItem value='init'>Initial</MenuItem>
-                <MenuItem value='filed'>Filed</MenuItem>
-                <MenuItem value='paid'>Paid</MenuItem>
-              </Select>
-            </FormControl>
-          </TableCell>
-          <TableCell>{f.type}</TableCell>
-          <TableCell>{f.payingEntity}</TableCell>
-          <TableCell align="right">{f.filingDeadline}</TableCell>
-          <TableCell align="right">{formatRsdcAmount(f.taxPayable)}</TableCell>
-          <TableCell align="right">
-            <ButtonGroup>
-              <Button onClick={() => {
-                ipcContextApi.exportFiling(f.id)
-              }}>Save As...</Button>
-              <Button color="error" onClick={async () => {
-                await ipcContextApi.deleteFiling(f.id)
-                props.invalidateFilings()
-              }}>Delete</Button>
-            </ButtonGroup>
-          </TableCell>
-        </TableRow>)}
+        {displayFilings.map((f, fIdx) => 
+          <FilingsRow
+            key={fIdx}
+            filing={f}
+            invalidateFilings={props.invalidateFilings}
+            openFilingEditDialog={() => setFilingEditDialogState({
+              visible: true,
+              filing: f,
+            })}
+          />
+        )}
         { filteredFilings.length === 0 &&
           <TableRow>
-            <TableCell colSpan={6}>
+            <TableCell colSpan={7}>
               <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
                 <DoDisturbAltIcon />
                 No filings found

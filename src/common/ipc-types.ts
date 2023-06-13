@@ -24,6 +24,7 @@ export type Filing = {
   payingEntity: string,
   filingDeadline: DateString,
   taxPayable: number
+  taxPaymentReference: string,
 }
 
 export type TaxpayerProfile = {

@@ -16,8 +16,6 @@ let appWindow: BrowserWindow
 export async function createAppWindow(): Promise<BrowserWindow> {
   // Create new window instance
   appWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
     backgroundColor: '#202020',
     show: false,
     autoHideMenuBar: true,

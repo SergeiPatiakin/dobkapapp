@@ -76,6 +76,7 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
               fromFilter,
               subjectFilter,
               attachmentRegex,
+              paymentNotes,
             })
           } else {
             await ipcContextApi.updateImporter({
@@ -84,6 +85,7 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
               fromFilter,
               subjectFilter,
               attachmentRegex,
+              paymentNotes,
             })
           }
           props.invalidateImporters()

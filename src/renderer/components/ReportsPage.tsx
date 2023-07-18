@@ -1,8 +1,10 @@
 import { Filing, Report } from '../../common/ipc-types'
-import { Button, ButtonGroup, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Pagination, Stack, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import { Button, ButtonGroup, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemIcon, ListItemText, Menu, MenuItem, Pagination, Stack, Table, TableBody, TableCell, TableHead, TableRow, useTheme } from '@mui/material'
 import ipcContextApi from '../../renderer/ipc-context-api'
 import React, { useEffect, useMemo, useState } from 'react'
 import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt'
+import DownloadIcon from '@mui/icons-material/Download'
+import TrashIcon from '@mui/icons-material/Delete'
 
 interface ReportsPageProps {
   reports: Array<Report>
@@ -12,6 +14,78 @@ interface ReportsPageProps {
 }
 
 const PAGE_SIZE = 20
+
+type ReportsRowProps = {
+  report: Report
+  allFilings: Array<Filing>
+  openReportDeleteDialog: (dialogState: DeleteDialogState) => void
+  invalidateReports: () => void
+}
+
+const ReportsRow = (props: ReportsRowProps) => {
+  const relatedFilings = props.allFilings.filter(f => f.reportId === props.report.id)
+  const theme = useTheme()
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<HTMLElement | null>(null)
+  const menuOpen = Boolean(menuAnchorEl)
+  return <TableRow>
+    <TableCell>{props.report.id}</TableCell>
+    <TableCell>{props.report.status}</TableCell>
+    <TableCell>{props.report.reportName}</TableCell>
+    <TableCell>{relatedFilings.map(r => r.id.toString()).join(', ')}</TableCell>
+    <TableCell align="right">
+    <ButtonGroup>
+        <Button onClick={e => { setMenuAnchorEl(e.currentTarget) }}>
+          Actions
+        </Button>
+        <Menu
+          open={menuOpen}
+          anchorEl={menuAnchorEl}
+          onClose={() => setMenuAnchorEl(null)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <MenuItem
+            onClick={async () => {
+              await ipcContextApi.exportReport(props.report.id)
+              setMenuAnchorEl(null)
+            }}
+          >
+            <ListItemIcon>
+              <DownloadIcon />
+            </ListItemIcon>
+            <ListItemText>Save As...</ListItemText>
+          </MenuItem>
+          <MenuItem
+            onClick={async () => {
+              if (relatedFilings.length > 0) {
+                // If there are filings to delete, ask for confirmation
+                props.openReportDeleteDialog({
+                  reportId: props.report.id,
+                  filingIds: relatedFilings.map(f => f.id),
+                })
+                return
+              }
+              // Otherwise just delete the report
+              await ipcContextApi.deleteReport(props.report.id)
+              props.invalidateReports()
+            }}
+          >
+            <ListItemIcon style={{ color: theme.palette.error.dark }}>
+              <TrashIcon />
+            </ListItemIcon>
+            <ListItemText style={{ color: theme.palette.error.dark }}>Delete</ListItemText>
+          </MenuItem>
+        </Menu>
+      </ButtonGroup>
+    </TableCell>
+  </TableRow>
+}
 
 type DeleteDialogState = {
   filingIds: number[]
@@ -69,37 +143,19 @@ export const ReportsPage = (props: ReportsPageProps) => {
           <TableCell><b>Status</b></TableCell>
           <TableCell><b>Name</b></TableCell>
           <TableCell><b>Filings</b></TableCell>
-          <TableCell align="right"><b>Actions</b></TableCell>
+          <TableCell align="right"></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {displayReports.map((r, rIdx) => {
-          const relatedFilings = props.filings.filter(f => f.reportId === r.id)
-          return <TableRow key={rIdx}>
-            <TableCell>{r.id}</TableCell>
-            <TableCell>{r.status}</TableCell>
-            <TableCell>{r.reportName}</TableCell>
-            <TableCell>{relatedFilings.map(r => r.id.toString()).join(', ')}</TableCell>
-            <TableCell align="right">
-              <ButtonGroup>
-                <Button color="error" onClick={async () => {
-                  if (relatedFilings.length > 0) {
-                    // If there are filings to delete, ask for confirmation
-                    setDeleteDialogState({
-                      reportId: r.id,
-                      filingIds: relatedFilings.map(f => f.id),
-                    })
-                    return
-                  }
-                  // Otherwise just delete the report
-                  await ipcContextApi.deleteReport(r.id)
-                  props.invalidateReports()
-                }}>Delete</Button>
-              </ButtonGroup>
-            </TableCell>
-          </TableRow>
-          })
-        }
+        {displayReports.map(r => {
+          return <ReportsRow
+            key={r.id}
+            report={r}
+            allFilings={props.filings}
+            openReportDeleteDialog={s => setDeleteDialogState(s)}
+            invalidateReports={props.invalidateReports}
+          />
+        })}
         { props.reports.length === 0 &&
           <TableRow>
             <TableCell colSpan={6}>

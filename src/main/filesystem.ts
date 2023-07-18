@@ -16,7 +16,10 @@ export const getReportsDir = () => path.join(app.getPath('userData'), 'reports')
 export const saveReportContent = (id: number, content: Buffer | string) => {
   fs.writeFileSync(getReportPath(id), content)
 }
-
+export const getReportContent = (id: number): Buffer => {
+  const filePath = getReportPath(id)
+  return fs.readFileSync(filePath)
+}
 export const getReportPath = (id: number) => path.join(getReportsDir(), `${id}.csv`)
 
 // filings

@@ -134,6 +134,11 @@ export type GetReports = IpcTypeDef<
   void,
   Array<Report>
 >
+export type ExportReport = IpcTypeDef<
+  'export-report',
+  number,
+  void
+>
 export type DeleteReport = IpcTypeDef<
   'delete-report',
   number,
@@ -234,6 +239,7 @@ export type IpcMethods = {
   openUrl: OpenUrl
   runSql: RunSql
   getReports: GetReports
+  exportReport: ExportReport
   deleteReport: DeleteReport
   getFilings: GetFilings
   updateFiling: UpdateFiling
@@ -263,6 +269,7 @@ const ipcNames: IpcNames = {
   openUrl: 'open-url',
   runSql: 'run-sql',
   getReports: 'get-reports',
+  exportReport: 'export-report',
   deleteReport: 'delete-report',
   getFilings: 'get-filings',
   updateFiling: 'update-filing',

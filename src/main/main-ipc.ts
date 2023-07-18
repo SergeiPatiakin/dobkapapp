@@ -5,7 +5,7 @@ import { createFiling, createImporter, createReport, deleteFiling, deleteImporte
 import { JobStore } from './job-store'
 import { getSearchCriteria, ImapClient, parseMessage } from './imap-utils'
 import { fireAndForget } from '../common/helpers'
-import { getFilingContent, getReportPath, getTechnicalConf, saveFilingContent, saveReportContent, updateTechnicalConf } from './filesystem'
+import { getFilingContent, getReportContent, getReportPath, getTechnicalConf, saveFilingContent, saveReportContent, updateTechnicalConf } from './filesystem'
 import { createCurrencyService, createHolidayService, DividendInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
 import { decodeHolidayConf } from '../common/holiday-conf'
 import { getPassiveIncomeFilingInfo } from 'dobkap/lib/passive-income'
@@ -23,6 +23,16 @@ const handlers: IpcHandlerFns = {
 
   getReports: async () => {
     return getReportsByMailbox(1)
+  },
+
+  exportReport: async ({ arg: reportId, browserWindow }) => {
+    const r = await dialog.showSaveDialog(browserWindow, {
+      defaultPath: `${reportId}.csv`
+    })
+    if (!r.canceled && r.filePath) {
+      const reportContent = getReportContent(reportId)
+      fs.writeFileSync(r.filePath, reportContent)
+    }
   },
 
   deleteReport: async ({ arg: id }) => {

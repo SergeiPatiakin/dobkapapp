@@ -184,9 +184,9 @@ export const FilingsPage = (props: FilingsPageProps) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {displayFilings.map((f, fIdx) => 
+        {displayFilings.map(f => 
           <FilingsRow
-            key={fIdx}
+            key={f.id}
             filing={f}
             invalidateFilings={props.invalidateFilings}
             openFilingEditDialog={() => setFilingEditDialogState({

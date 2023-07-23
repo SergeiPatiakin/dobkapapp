@@ -177,8 +177,10 @@ export const getReportsByMailbox = (mailboxId: number) => {
       mailbox_message_id AS mailboxMessageId,
       report_name AS reportName,
       status AS status
-    FROM reports WHERE mailbox_id=$mailboxId`,
-  ).all({
+    FROM reports
+    WHERE mailbox_id=$mailboxId
+    ORDER BY id DESC
+  `).all({
     mailboxId,  
   }) as Array<{
     id: number,

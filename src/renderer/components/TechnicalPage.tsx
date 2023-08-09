@@ -2,13 +2,14 @@ import { Alert, Button, ButtonGroup, Container, Stack, TextField } from '@mui/ma
 import React, { useState } from 'react'
 import { TechnicalConf } from '../../common/ipc-types'
 import ipcContextApi from '../ipc-context-api'
+import { useQueryClient } from '@tanstack/react-query'
 
 type Props = {
   technicalConf: TechnicalConf
-  invalidateTechnicalConf: () => void
 }
 
 export const TechnicalPage = (props: Props) => {
+  const queryClient = useQueryClient()
   const [mexicoBdmToken, setMexicoBdmToken] = useState(props.technicalConf.mexicoBdmToken)
   const [holidayConf, setHolidayConf] = useState(props.technicalConf.holidayConf)
 
@@ -42,7 +43,7 @@ export const TechnicalPage = (props: Props) => {
             mexicoBdmToken,
             holidayConf,
           })
-          props.invalidateTechnicalConf()
+          queryClient.invalidateQueries({ queryKey: ['technical-conf'] })
         }}>Save</Button>
       </ButtonGroup>
     </Stack>

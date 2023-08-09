@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Accordion, AccordionDetails, AccordionSummary, Alert, Button, ButtonGroup, Container, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material'
 import ipcContextApi from '../ipc-context-api'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useQueryClient } from '@tanstack/react-query'
 
-type Props = {
-  invalidateAllData: () => void
-}
+// eslint-disable-next-line @typescript-eslint/ban-types
+type Props = {}
 
 export const DevPage = (props: Props) => {
+  const queryClient = useQueryClient()
   const [sql, setSql] = useState('')
   const [result, setResult] = useState<{columns: Array<{name: string}>, rows: any[][]} | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -46,7 +47,7 @@ export const DevPage = (props: Props) => {
         onClick={async () => {
           try {
             const x = await ipcContextApi.runSql(sql)
-            props.invalidateAllData()
+            queryClient.invalidateQueries() // invalidate all data
             setResult(x)
             setErrorMessage(null)
           } catch (e) {

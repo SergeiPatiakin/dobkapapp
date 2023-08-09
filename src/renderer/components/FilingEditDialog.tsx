@@ -12,14 +12,15 @@ import {
 } from '@mui/material'
 import ipcContextApi from '../../renderer/ipc-context-api'
 import React, { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 type FilingEditDialogProps = {
   filing: Filing
   onClose: () => void
-  invalidateFilings: () => void
 }
 
 export const FilingEditDialog = (props: FilingEditDialogProps) => {
+  const queryClient = useQueryClient()
   const [paymentReference, setPaymentReference] = useState(props.filing.taxPaymentReference)
   return <Dialog
       open
@@ -61,7 +62,7 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
           ...props.filing,
           taxPaymentReference: paymentReference,
         })
-        props.invalidateFilings()
+        queryClient.invalidateQueries({ queryKey: ['filings'] })
         props.onClose()
       }} autoFocus>
         Save

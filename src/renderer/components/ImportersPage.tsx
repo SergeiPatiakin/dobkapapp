@@ -4,16 +4,15 @@ import ipcContextApi from '../../renderer/ipc-context-api'
 import React, { useEffect, useMemo, useState } from 'react'
 import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt'
 import HelpIcon from '@mui/icons-material/Help'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ImportersPageProps {
   importers: Array<Importer>
-  invalidateImporters: () => void
 }
 
 type UpsertDialogProps = {
   initialImporter: Importer
   onClose: () => void
-  invalidateImporters: () => void
 }
 
 const PAGE_SIZE = 20
@@ -23,6 +22,7 @@ const ImporterTypeDescriptions: { [k in ImporterType]: string} = {
 }
 
 const UpsertImporterDialog = (props: UpsertDialogProps) => {
+  const queryClient = useQueryClient()
   const [name, setName] = useState(props.initialImporter.name)
   const [fromFilter, setFromFilter] = useState(props.initialImporter.fromFilter)
   const [subjectFilter, setSubjectFilter] = useState(props.initialImporter.subjectFilter)
@@ -88,7 +88,7 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
               paymentNotes,
             })
           }
-          props.invalidateImporters()
+          queryClient.invalidateQueries({ queryKey: ['importers'] })
           props.onClose()
         }}>Save</Button>
       </DialogActions>
@@ -97,6 +97,7 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
 }
 
 export const ImportersPage = (props: ImportersPageProps) => {
+  const queryClient = useQueryClient()
   const [page, setPage] = useState(1)
   const [upsertImporter, setUpsertImporter] = useState<Importer | null>(null)
   const displayImporters = useMemo(
@@ -117,7 +118,6 @@ export const ImportersPage = (props: ImportersPageProps) => {
     {upsertImporter && <UpsertImporterDialog
       initialImporter={upsertImporter}
       onClose={() => setUpsertImporter(null)}
-      invalidateImporters={props.invalidateImporters}
     />}
     <Table>
       <TableHead>
@@ -141,7 +141,7 @@ export const ImportersPage = (props: ImportersPageProps) => {
                 }}>Edit</Button>
                 <Button color="error" onClick={async () => {
                   await ipcContextApi.deleteImporter(im.id)
-                  props.invalidateImporters()
+                  queryClient.invalidateQueries({ queryKey: ['importers'] })
                 }}>Delete</Button>
               </ButtonGroup>
             </TableCell>

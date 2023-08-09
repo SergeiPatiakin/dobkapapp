@@ -5,12 +5,11 @@ import React, { useEffect, useMemo, useState } from 'react'
 import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt'
 import DownloadIcon from '@mui/icons-material/Download'
 import TrashIcon from '@mui/icons-material/Delete'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ReportsPageProps {
   reports: Array<Report>
   filings: Array<Filing>
-  invalidateReports: () => void
-  invalidateFilings: () => void
 }
 
 const PAGE_SIZE = 20
@@ -19,11 +18,11 @@ type ReportsRowProps = {
   report: Report
   allFilings: Array<Filing>
   openReportDeleteDialog: (dialogState: DeleteDialogState) => void
-  invalidateReports: () => void
 }
 
 const ReportsRow = (props: ReportsRowProps) => {
   const relatedFilings = props.allFilings.filter(f => f.reportId === props.report.id)
+  const queryClient = useQueryClient()
   const theme = useTheme()
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<HTMLElement | null>(null)
   const menuOpen = Boolean(menuAnchorEl)
@@ -73,7 +72,7 @@ const ReportsRow = (props: ReportsRowProps) => {
               }
               // Otherwise just delete the report
               await ipcContextApi.deleteReport(props.report.id)
-              props.invalidateReports()
+              queryClient.invalidateQueries({ queryKey: ['reports'] })
             }}
           >
             <ListItemIcon style={{ color: theme.palette.error.dark }}>
@@ -93,6 +92,7 @@ type DeleteDialogState = {
 }
 
 export const ReportsPage = (props: ReportsPageProps) => {
+  const queryClient = useQueryClient()
   const [page, setPage] = useState(1)
   const [deleteDialogState, setDeleteDialogState] = useState<DeleteDialogState | null>(null)
   const displayReports = useMemo(
@@ -126,11 +126,11 @@ export const ReportsPage = (props: ReportsPageProps) => {
             // Delete related filings
             for (const filingId of deleteDialogState.filingIds) {
               await ipcContextApi.deleteFiling(filingId)
-              props.invalidateFilings()
+              queryClient.invalidateQueries({ queryKey: ['filings'] })
             }
             // Delete report
             await ipcContextApi.deleteReport(deleteDialogState.reportId)
-            props.invalidateReports()
+            queryClient.invalidateQueries({ queryKey: ['reports'] })
             setDeleteDialogState(null)
           }}>Delete</Button>
         </DialogActions>
@@ -153,7 +153,6 @@ export const ReportsPage = (props: ReportsPageProps) => {
             report={r}
             allFilings={props.filings}
             openReportDeleteDialog={s => setDeleteDialogState(s)}
-            invalidateReports={props.invalidateReports}
           />
         })}
         { props.reports.length === 0 &&

@@ -3,13 +3,14 @@ import { Alert, Button, ButtonGroup, Container, FormControl, IconButton, InputAd
 import React, { useState } from 'react'
 import ipcContextApi from '../ipc-context-api'
 import HelpIcon from '@mui/icons-material/Help'
+import { useQueryClient } from '@tanstack/react-query'
 
 type Props = {
   taxpayerProfile: TaxpayerProfile
-  invalidateTaxpayerProfile: () => void
 }
 
 export const TaxpayerProfilePage = (props: Props) => {
+  const queryClient = useQueryClient()
   const [jmbg, setJmbg] = useState(props.taxpayerProfile.jmbg)
   const [fullName, setFullName] = useState(props.taxpayerProfile.fullName)
   const [streetAddress, setStreetAddress] = useState(props.taxpayerProfile.streetAddress)
@@ -72,7 +73,7 @@ export const TaxpayerProfilePage = (props: Props) => {
             phoneNumber,
             emailAddress: filingEmailAddress,
           })
-          props.invalidateTaxpayerProfile()
+          queryClient.invalidateQueries({ queryKey: ['taxpayer-profile'] })
         }}>
           Save
         </Button>

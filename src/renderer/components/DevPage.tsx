@@ -4,6 +4,7 @@ import ipcContextApi from '../ipc-context-api'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useQueryClient } from '@tanstack/react-query'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type Props = {}
 
 export const DevPage = (props: Props) => {

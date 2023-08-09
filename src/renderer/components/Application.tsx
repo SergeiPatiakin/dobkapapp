@@ -1,5 +1,5 @@
 import ipcContextApi from '../ipc-context-api'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { AppBar, Button, CssBaseline, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar } from '@mui/material'
 import { TaxpayerProfilePage } from './TaxpayerProfilePage'
 import { DevPage } from './DevPage'
@@ -12,7 +12,7 @@ import SyncIcon from '@mui/icons-material/Sync'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import SummarizeIcon from '@mui/icons-material/Summarize'
 import CableIcon from '@mui/icons-material/Cable'
-import { Filing, Mailbox, Report, TechnicalConf, TaxpayerProfile, Importer } from '../../common/ipc-types'
+import { TechnicalConf, Importer } from '../../common/ipc-types'
 import { fireAndForget } from '../../common/helpers'
 import { FilingsPage } from './FilingsPage'
 import { MailboxPage } from './MailboxPage'
@@ -20,6 +20,7 @@ import { SyncPage } from './SyncPage'
 import { TechnicalPage } from './TechnicalPage'
 import { ReportsPage } from './ReportsPage'
 import { ImportersPage } from './ImportersPage'
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 
 type NavigationPage =
   | 'settings.taxpayer'
@@ -34,62 +35,48 @@ type NavigationPage =
 const Application: React.FC = () => {
   const [navigationPage, setNavigationPage] = useState<NavigationPage>('sync')
   const [navigationEnabled, setNavigationEnabled] = useState<boolean>(true)
-  const [reports, setReports] = useState<Array<Report>>([])
-  const [reportsTag, setReportsTag] = useState(Math.random())
-  const invalidateReports = () => setReportsTag(Math.random())
+  
+  const reportsQuery = useQuery({
+    queryKey: ['reports'],
+    queryFn: () => ipcContextApi.getReports(),
+  })
 
-  const [filings, setFilings] = useState<Array<Filing>>([])
-  const [filingsTag, setFilingsTag] = useState(Math.random())
-  const invalidateFilings = () => setFilingsTag(Math.random())
+  const filingsQuery = useQuery({
+    queryKey: ['filings'],
+    queryFn: () => ipcContextApi.getFilings()
+  })
 
-  const [taxpayerProfile, setTaxpayerProfile] = useState<TaxpayerProfile | null>()
-  const [taxpayerProfileTag, setTaxpayerProfileTag] = useState(Math.random())
-  const invalidateTaxpayerProfile = () => setTaxpayerProfileTag(Math.random())
+  const taxpayerProfileQuery = useQuery({
+    queryKey: ['taxpayer-profile'],
+    queryFn: () => ipcContextApi.getTaxpayerProfile()
+  })
 
-  const [mailbox, setMailbox] = useState<Mailbox | null>()
-  const [mailboxTag, setMailboxTag] = useState(Math.random())
-  const invalidateMailbox = () => setMailboxTag(Math.random())
+  const mailboxQuery = useQuery({
+    queryKey: ['mailbox'],
+    queryFn: () => ipcContextApi.getMailbox()
+  })
 
-  const [technicalConf, setTechnicalConf] = useState<TechnicalConf | null>()
-  const [technicalConfTag, setTechnicalConfTag] = useState(Math.random())
-  const invalideTechnicalConf = () => setTechnicalConfTag(Math.random())
-
-  const [importers, setImporters] = useState<Array<Importer>>([])
-  const [importersTag, setImportersTag] = useState(Math.random())
-  const invalidateImporters = () => setImportersTag(Math.random())
+  const technicalConfQuery = useQuery({
+    queryKey: ['technical-conf'],
+    queryFn: () => ipcContextApi.getTechnicalConf()
+  })
+  
+  const importersQuery = useQuery({
+    queryKey: ['importers'],
+    queryFn: () => ipcContextApi.getImporters()
+  })
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<HTMLElement | null>(null)
   const menuOpen = Boolean(menuAnchorEl)
 
-  useEffect(() => fireAndForget(async () => {
-    setReports(await ipcContextApi.getReports())
-  }), [reportsTag])
-  useEffect(() => fireAndForget(async () => {
-    setFilings(await ipcContextApi.getFilings())
-  }), [filingsTag])
-  useEffect(() => fireAndForget(async () => {
-    setTaxpayerProfile(await ipcContextApi.getTaxpayerProfile())
-  }), [taxpayerProfileTag])
-  useEffect(() => fireAndForget(async () => {
-    setMailbox(await ipcContextApi.getMailbox())
-  }), [mailboxTag])
-  useEffect(() => fireAndForget(async () => {
-    setTechnicalConf(await ipcContextApi.getTechnicalConf())
-  }), [technicalConfTag])
-  useEffect(() => fireAndForget(async () => {
-    setImporters(await ipcContextApi.getImporters())
-  }), [importersTag])
-
-  const invalidateAllData = () => {
-    invalidateReports()
-    invalidateFilings()
-    invalidateTaxpayerProfile()
-    invalidateMailbox()
-    invalideTechnicalConf()
-    invalidateImporters()
-  }
-
-  if (!taxpayerProfile || !mailbox || !technicalConf) {
+  if (
+    !taxpayerProfileQuery.isSuccess ||
+    !mailboxQuery.isSuccess ||
+    !technicalConfQuery.isSuccess ||
+    !reportsQuery.isSuccess ||
+    !filingsQuery.isSuccess ||
+    !importersQuery.isSuccess
+  ) {
     return <>
       <CssBaseline />
       <p>Loading</p>
@@ -195,24 +182,31 @@ const Application: React.FC = () => {
     {(() => {
       switch (navigationPage) {
         case 'settings.taxpayer':
-          return <TaxpayerProfilePage taxpayerProfile={taxpayerProfile} invalidateTaxpayerProfile={invalidateTaxpayerProfile} />
+          return <TaxpayerProfilePage taxpayerProfile={taxpayerProfileQuery.data} />
         case 'settings.mailbox':
-          return <MailboxPage mailbox={mailbox} invalidateMailbox={invalidateMailbox} />
+          return <MailboxPage mailbox={mailboxQuery.data} />
         case 'settings.technical':
-          return <TechnicalPage technicalConf={technicalConf} invalidateTechnicalConf={invalideTechnicalConf} />
+          return <TechnicalPage technicalConf={technicalConfQuery.data} />
         case 'settings.importers':
-          return <ImportersPage importers={importers} invalidateImporters={invalidateImporters} />
+          return <ImportersPage importers={importersQuery.data} />
         case 'sync':
-          return <SyncPage setNavigationEnabled={setNavigationEnabled} invalidateReports={invalidateReports} invalidateFilings={invalidateFilings} invalidateMailbox={invalidateMailbox} />
+          return <SyncPage setNavigationEnabled={setNavigationEnabled} />
         case 'reports':
-          return <ReportsPage reports={reports} filings={filings} invalidateFilings={invalidateFilings} invalidateReports={invalidateReports} />
+          return <ReportsPage reports={reportsQuery.data} filings={filingsQuery.data} />
         case 'filings':
-          return <FilingsPage reports={reports} filings={filings} invalidateFilings={invalidateFilings} />
+          return <FilingsPage reports={reportsQuery.data} filings={filingsQuery.data} />
         case 'dev':
-          return <DevPage invalidateAllData={invalidateAllData} />
+          return <DevPage />
       }
     })()}
   </>
 }
 
-export default Application
+const ApplicationWrapper = () => {
+  const queryClient = useMemo(() => new QueryClient(), [])
+  return <QueryClientProvider client={queryClient}>
+    <Application/>
+  </QueryClientProvider>
+}
+
+export default ApplicationWrapper

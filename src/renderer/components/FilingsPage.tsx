@@ -26,11 +26,11 @@ import DownloadIcon from '@mui/icons-material/Download'
 import TrashIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { FilingEditDialog } from './FilingEditDialog'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface FilingsPageProps {
   reports: Array<Report>
   filings: Array<Filing>
-  invalidateFilings: () => void
 }
 
 const PAGE_SIZE = 20
@@ -38,11 +38,11 @@ const PAGE_SIZE = 20
 type FilingsRowProps = {
   filing: Filing
   openFilingEditDialog: () => void
-  invalidateFilings: () => void
 }
 
 const FilingsRow = (props: FilingsRowProps) => {
   const theme = useTheme()
+  const queryClient = useQueryClient()
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<HTMLElement | null>(null)
   const menuOpen = Boolean(menuAnchorEl)
   return <TableRow>
@@ -55,7 +55,7 @@ const FilingsRow = (props: FilingsRowProps) => {
           onChange={async e => {
             const newStatus = e.target.value as FilingStatus
             await ipcContextApi.updateFiling({...props.filing, status: newStatus})
-            props.invalidateFilings()
+            queryClient.invalidateQueries({ queryKey: ['filings'] })
           }
         }>
           <MenuItem value='init'>Initial</MenuItem>
@@ -160,7 +160,6 @@ export const FilingsPage = (props: FilingsPageProps) => {
     {filingEditDialogState.visible &&
       <FilingEditDialog
         filing={filingEditDialogState.filing}
-        invalidateFilings={props.invalidateFilings}
         onClose={() => setFilingEditDialogState({ visible: false })}
       />
     }
@@ -188,7 +187,6 @@ export const FilingsPage = (props: FilingsPageProps) => {
           <FilingsRow
             key={f.id}
             filing={f}
-            invalidateFilings={props.invalidateFilings}
             openFilingEditDialog={() => setFilingEditDialogState({
               visible: true,
               filing: f,

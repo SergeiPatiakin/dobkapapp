@@ -4,13 +4,14 @@ import { Alert, Button, ButtonGroup, Container, IconButton, InputAdornment, Stac
 import React, { useState } from 'react'
 import { decrementCursor, formatMailboxCursor, incrementCursor } from '../../common/mailbox-cursor'
 import ipcContextApi from '../ipc-context-api'
+import { useQueryClient } from '@tanstack/react-query'
 
 type Props = {
   mailbox: Mailbox
-  invalidateMailbox: () => void
 }
 
 export const MailboxPage = (props: Props) => {
+  const queryClient = useQueryClient()
   const [imapEmailAddress, setImapEmailAddress] = useState(props.mailbox.emailAddress)
   const [imapEmailPassword, setImapEmailPassword] = useState(props.mailbox.emailPassword)
   const [showPassword, setShowPassword] = useState(false)
@@ -83,7 +84,7 @@ export const MailboxPage = (props: Props) => {
             imapPort: Number.isNaN(imapPort) ? props.mailbox.imapPort : imapPort,
             cursor,
           })
-          props.invalidateMailbox()
+          queryClient.invalidateQueries({ queryKey: ['mailbox'] })
         }}>
           Save
         </Button>

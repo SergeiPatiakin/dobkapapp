@@ -2,15 +2,14 @@ import { Job } from '../../common/ipc-types'
 import { Alert, Button, ButtonGroup, Container, Stack } from '@mui/material'
 import ipcContextApi from '../ipc-context-api'
 import React, { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 type Props = {
   setNavigationEnabled: (navigationEnabled: boolean) => void
-  invalidateReports: () => void
-  invalidateFilings: () => void
-  invalidateMailbox: () => void
 }
 
 export const SyncPage = (props: Props) => {
+  const queryClient = useQueryClient()
   const [job, setJob] = useState<Job | null>(null)
   return <Container>
     <Stack spacing={1}>
@@ -48,9 +47,9 @@ export const SyncPage = (props: Props) => {
             }
           } finally {
             props.setNavigationEnabled(true)
-            props.invalidateReports()
-            props.invalidateFilings()
-            props.invalidateMailbox()
+            queryClient.invalidateQueries({ queryKey: ['reports'] })
+            queryClient.invalidateQueries({ queryKey: ['filings'] })
+            queryClient.invalidateQueries({ queryKey: ['mailbox'] })
           }
         }}>
           Run Sync

@@ -255,7 +255,7 @@ const handlers: IpcHandlerFns = {
           if (dividendCounter > 0) {
             jobStore.addMessage(jobId, {
               type: 'success',
-              message: `Processed ${dividendCounter} dividends`,
+              message: `Processed ${dividendCounter} passive incomes`,
             })
           }
         } catch (e) {

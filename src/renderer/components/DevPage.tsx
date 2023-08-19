@@ -7,7 +7,7 @@ import { useQueryClient } from '@tanstack/react-query'
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Props = {}
 
-export const DevPage = (props: Props) => {
+export const DevPage = (_props: Props) => {
   const queryClient = useQueryClient()
   const [sql, setSql] = useState('')
   const [result, setResult] = useState<{columns: Array<{name: string}>, rows: any[][]} | null>(null)

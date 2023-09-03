@@ -6,7 +6,7 @@ import { JobStore } from './job-store'
 import { getSearchCriteria, ImapClient, parseMessage } from './imap-utils'
 import { fireAndForget } from '../common/helpers'
 import { getFilingContent, getReportContent, getReportPath, getTechnicalConf, saveFilingContent, saveReportContent, updateTechnicalConf } from './filesystem'
-import { createCurrencyService, createHolidayService, DividendInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
+import { createCurrencyService, createHolidayService, DividendInfo as PassiveIncomeInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
 import { decodeHolidayConf } from '../common/holiday-conf'
 import { getPassiveIncomeFilingInfo } from 'dobkap/lib/passive-income'
 
@@ -191,24 +191,24 @@ const handlers: IpcHandlerFns = {
           const holidays = technicalConf.holidayConf.holidays.map(h => toNaiveDate(h))
           const holidayService = createHolidayService(holidays, holidayRange)
           
-          let dividendCounter = 0
+          let passiveIncomeCounter = 0
           for (const report of unprocessedReports) {
             const importer = importers.find(im => im.id === report.importerId)
             if (!importer) {
               console.error(`Cannot find importer. ${{ importerId: report.importerId }}`)
               continue
             }
-            let dividendInfos: Array<DividendInfo>
+            let passiveIncomeInfos: Array<PassiveIncomeInfo>
             if (importer.type === 'IbkrCsv') {
-              dividendInfos = await ibkrImporter(getReportPath(report.id))
+              passiveIncomeInfos = await ibkrImporter(getReportPath(report.id))
             } else {
               console.error(`Unknown importer type: ${{ type: importer.type }}`)
               continue
             }
-            for (const dividendInfo of dividendInfos) {
+            for (const passiveIncomeInfo of passiveIncomeInfos) {
               const passiveIncomeFilingInfo = await getPassiveIncomeFilingInfo(
                 currencyService,
-                dividendInfo,
+                passiveIncomeInfo,
               )
               const filingDeadline = getFilingDeadline(
                 holidayService,
@@ -238,7 +238,7 @@ const handlers: IpcHandlerFns = {
 
               saveFilingContent(filingId, opoForm)
 
-              dividendCounter += 1
+              passiveIncomeCounter += 1
             }
             updateReport({
               ...report,
@@ -252,10 +252,10 @@ const handlers: IpcHandlerFns = {
               message: `Processed ${unprocessedReports.length} reports`,
             })
           }
-          if (dividendCounter > 0) {
+          if (passiveIncomeCounter > 0) {
             jobStore.addMessage(jobId, {
               type: 'success',
-              message: `Processed ${dividendCounter} passive incomes`,
+              message: `Processed ${passiveIncomeCounter} passive incomes`,
             })
           }
         } catch (e) {

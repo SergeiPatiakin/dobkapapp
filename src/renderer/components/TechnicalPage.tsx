@@ -18,7 +18,7 @@ export const TechnicalPage = (props: Props) => {
       <h2 style={{ marginBottom: 0}}>Technical</h2>
       <TextField label="Mexico BDM token" value={mexicoBdmToken} onChange={e => setMexicoBdmToken(e.target.value)} />
       <Alert severity="info">Adding a Banco De Mexico API token will enable current conversion for
-        dividends received in the MXN currency. You can obtain a token <a
+        incomes received in the MXN currency. You can obtain a token <a
         href="#" onClick={() => {
           ipcContextApi.openUrl('https://www.banxico.org.mx/SieAPIRest/service/v1/')
         }}>here</a>

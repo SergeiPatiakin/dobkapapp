@@ -1,7 +1,7 @@
 {
   "name": "dobkapapp",
   "version": "0.3.3",
-  "description": "Desktop application to automate dividend tax filings",
+  "description": "Desktop application to automate passive income tax filings",
   "main": ".webpack/main",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",

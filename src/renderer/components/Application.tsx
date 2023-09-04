@@ -1,5 +1,5 @@
 import ipcContextApi from '../ipc-context-api'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { AppBar, Button, CssBaseline, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar } from '@mui/material'
 import { TaxpayerProfilePage } from './TaxpayerProfilePage'
 import { DevPage } from './DevPage'
@@ -12,8 +12,6 @@ import SyncIcon from '@mui/icons-material/Sync'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import SummarizeIcon from '@mui/icons-material/Summarize'
 import CableIcon from '@mui/icons-material/Cable'
-import { TechnicalConf, Importer } from '../../common/ipc-types'
-import { fireAndForget } from '../../common/helpers'
 import { FilingsPage } from './FilingsPage'
 import { MailboxPage } from './MailboxPage'
 import { SyncPage } from './SyncPage'
@@ -39,31 +37,37 @@ const Application: React.FC = () => {
   const reportsQuery = useQuery({
     queryKey: ['reports'],
     queryFn: () => ipcContextApi.getReports(),
+    networkMode: 'always',
   })
 
   const filingsQuery = useQuery({
     queryKey: ['filings'],
-    queryFn: () => ipcContextApi.getFilings()
+    queryFn: () => ipcContextApi.getFilings(),
+    networkMode: 'always',
   })
 
   const taxpayerProfileQuery = useQuery({
     queryKey: ['taxpayer-profile'],
-    queryFn: () => ipcContextApi.getTaxpayerProfile()
+    queryFn: () => ipcContextApi.getTaxpayerProfile(),
+    networkMode: 'always',
   })
 
   const mailboxQuery = useQuery({
     queryKey: ['mailbox'],
-    queryFn: () => ipcContextApi.getMailbox()
+    queryFn: () => ipcContextApi.getMailbox(),
+    networkMode: 'always',
   })
 
   const technicalConfQuery = useQuery({
     queryKey: ['technical-conf'],
-    queryFn: () => ipcContextApi.getTechnicalConf()
+    queryFn: () => ipcContextApi.getTechnicalConf(),
+    networkMode: 'always',
   })
   
   const importersQuery = useQuery({
     queryKey: ['importers'],
-    queryFn: () => ipcContextApi.getImporters()
+    queryFn: () => ipcContextApi.getImporters(),
+    networkMode: 'always',
   })
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<HTMLElement | null>(null)

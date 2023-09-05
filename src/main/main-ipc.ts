@@ -6,9 +6,10 @@ import { JobStore } from './job-store'
 import { getSearchCriteria, ImapClient, parseMessage } from './imap-utils'
 import { fireAndForget } from '../common/helpers'
 import { getFilingContent, getReportContent, getReportPath, getTechnicalConf, saveFilingContent, saveReportContent, updateTechnicalConf } from './filesystem'
-import { createCurrencyService, createHolidayService, DividendInfo as PassiveIncomeInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
+import { createCurrencyService, createHolidayService, PassiveIncomeInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
 import { decodeHolidayConf } from '../common/holiday-conf'
 import { getPassiveIncomeFilingInfo } from 'dobkap/lib/passive-income'
+import { ExchangeRateInfo } from 'dobkap/lib/currencies'
 
 const jobStore = new JobStore()
 
@@ -180,9 +181,6 @@ const handlers: IpcHandlerFns = {
           const unprocessedReports = allReports.filter(r => r.status !== 'processed')
           
           const technicalConf = getTechnicalConf()
-          const currencyService = createCurrencyService({
-            mexicoBdmToken: technicalConf.mexicoBdmToken || undefined,
-          })
           
           const holidayRange = {
             start: toNaiveDate(technicalConf.holidayConf.holidayRangeStart),
@@ -199,12 +197,21 @@ const handlers: IpcHandlerFns = {
               continue
             }
             let passiveIncomeInfos: Array<PassiveIncomeInfo>
+            let exchangeRateInfos: Array<ExchangeRateInfo>
             if (importer.type === 'IbkrCsv') {
-              passiveIncomeInfos = await ibkrImporter(getReportPath(report.id))
+              const importResult = await ibkrImporter(getReportPath(report.id))
+              passiveIncomeInfos = importResult.passiveIncomeInfos
+              exchangeRateInfos = importResult.exchangeRateInfos
             } else {
               console.error(`Unknown importer type: ${{ type: importer.type }}`)
               continue
             }
+            const currencyService = createCurrencyService({
+              apiTokens: {
+                mexicoBdmToken: technicalConf.mexicoBdmToken || undefined,
+              },
+              fallbackRates: exchangeRateInfos,
+            })
             for (const passiveIncomeInfo of passiveIncomeInfos) {
               const passiveIncomeFilingInfo = await getPassiveIncomeFilingInfo(
                 currencyService,

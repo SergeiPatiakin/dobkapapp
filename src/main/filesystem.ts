@@ -41,7 +41,7 @@ const getDefaultTechnicalConf = (): TechnicalConf => ({
   mexicoBdmToken: '',
   holidayConf: {
     holidayRangeStart: '2020-01-01',
-    holidayRangeEnd: '2023-12-31',
+    holidayRangeEnd: '2024-12-31',
     holidays: [
       '2020-01-01',
       '2020-01-02',
@@ -86,7 +86,18 @@ const getDefaultTechnicalConf = (): TechnicalConf => ({
       '2023-04-14',
       '2023-04-17',
       '2023-05-01',
-      '2023-05-02'
+      '2023-05-02',
+      "2023-11-11",
+      "2024-01-01",
+      "2024-01-02",
+      "2024-01-07",
+      "2024-02-15",
+      "2024-02-16",
+      "2024-05-01",
+      "2024-05-02",
+      "2024-05-03",
+      "2024-05-06",
+      "2024-11-11"
     ],
   },
 })

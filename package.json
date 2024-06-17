@@ -68,7 +68,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.3",
     "@tanstack/react-query": "^4.32.6",
-    "better-sqlite3": "^8.0.1",
+    "better-sqlite3": "^11.0.0",
     "dobkap": "^0.21.0",
     "electron-squirrel-startup": "^1.0.0",
     "mailparser-mit": "^1.0.0",

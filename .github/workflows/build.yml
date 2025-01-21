@@ -27,32 +27,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-  build-macos-x64:
-    runs-on: macos-12
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.20.0
-          cache: "npm"
-      
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install NPM dependencies
-        run: npm ci
-
-      - name: Make
-        run: npm run make
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: macos-x64-binary
-          path: out/make/zip/darwin/x64/**
-
   build-macos-arm64:
     runs-on: macos-14
     steps:

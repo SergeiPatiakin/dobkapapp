@@ -23,7 +23,7 @@ const handlers: IpcHandlerFns = {
   },
 
   getReports: async () => {
-    return getReportsByMailbox(1)
+    return getReportsByMailbox(1).reverse() // newest reports first
   },
 
   exportReport: async ({ arg: reportId, browserWindow }) => {

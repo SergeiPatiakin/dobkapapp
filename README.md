@@ -35,7 +35,10 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
   <img src = "docs/ibkr-setup-2.png" width = 600>
   <img src = "docs/ibkr-setup-3.png" width = 600>
 - Download and install a Dobkapapp binary suitable for your platform
-  - If you using macOS and see an error such as 'App is damaged and can't be opened', it could be because the binary is quarantined. Try opening the terminal and running a command like `xattr -d com.apple.quarantine /path/to/dobkapapp.app`.
+  - If you using macOS and see an error such as 'App is damaged and can't be opened', it could be because the binary is quarantined. In this case:
+    - Identify the path to the binary, e.g. `~/Downloads/dobkapapp.app`
+    - Open the terminal
+    - Run a command like `xattr -d com.apple.quarantine ~/Downloads/dobkapapp.app` to unquarantine the binary.
 - Open Dobkapapp
 - Configure mailbox settings and taxpayer settings
   - Initially the mailbox date cursor will be set to today. Move this a few days into the past

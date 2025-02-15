@@ -1,4 +1,4 @@
-import { Importer, ImporterType } from '../../common/ipc-types'
+import { Importer, ReportType } from '../../common/ipc-types'
 import { Button, ButtonGroup, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Pagination, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
 import ipcContextApi from '../../renderer/ipc-context-api'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -17,7 +17,7 @@ type UpsertDialogProps = {
 
 const PAGE_SIZE = 20
 
-const ImporterTypeDescriptions: { [k in ImporterType]: string} = {
+const ReportTypeDescriptions: { [k in ReportType]: string} = {
   'IbkrCsv': 'InteractiveBrokers CSV',
 }
 
@@ -61,7 +61,7 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
           <FormControl size="small">
             <InputLabel>Import format</InputLabel>
             <Select value="IbkrCsv" label="Import format">
-              <MenuItem value='IbkrCsv'>{ImporterTypeDescriptions['IbkrCsv']}</MenuItem>
+              <MenuItem value='IbkrCsv'>{ReportTypeDescriptions['IbkrCsv']}</MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -124,7 +124,7 @@ export const ImportersPage = (props: ImportersPageProps) => {
         <TableRow>
           <TableCell style={{ width: 50 }}><b>Id</b></TableCell>
           <TableCell><b>Name</b></TableCell>
-          <TableCell><b>Type</b></TableCell>
+          <TableCell><b>Report Type</b></TableCell>
           <TableCell align="right"><b>Actions</b></TableCell>
         </TableRow>
       </TableHead>
@@ -133,7 +133,7 @@ export const ImportersPage = (props: ImportersPageProps) => {
           return <TableRow key={im.id}>
             <TableCell>{im.id}</TableCell>
             <TableCell>{im.name}</TableCell>
-            <TableCell>{ImporterTypeDescriptions[im.type]}</TableCell>
+            <TableCell>{ReportTypeDescriptions[im.reportType]}</TableCell>
             <TableCell align="right">
               <ButtonGroup>
                 <Button onClick={async () => {
@@ -169,7 +169,7 @@ export const ImportersPage = (props: ImportersPageProps) => {
         setUpsertImporter({
           id: 0,
           name: 'Untitled importer',
-          type: 'IbkrCsv',
+          reportType: 'IbkrCsv',
           mailboxId: 1,
           taxpayerProfileId: 1,
           fromFilter: '',

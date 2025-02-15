@@ -7,6 +7,7 @@ export type ReportStatus = 'init' | 'processed'
 
 export type Report = {
   id: number,
+  type: ReportType,
   importerId: number | null,
   mailboxId: number,
   mailboxMessageId: number,
@@ -92,12 +93,12 @@ export type TechnicalConf = {
   holidayConf: HolidayConf
 }
 
-export type ImporterType = 'IbkrCsv'
+export type ReportType = 'IbkrCsv'
 
 export type Importer = {
   id: number
   name: string
-  type: ImporterType
+  reportType: ReportType
   taxpayerProfileId: number
   mailboxId: number
   fromFilter: string

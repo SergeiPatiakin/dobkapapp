@@ -139,6 +139,7 @@ const handlers: IpcHandlerFns = {
                     continue
                   }
                   const { id: reportId } = createReport({
+                    type: importer.reportType,
                     importerId,
                     mailboxId: mailbox.id,
                     mailboxMessageId: uid,
@@ -198,12 +199,12 @@ const handlers: IpcHandlerFns = {
             }
             let passiveIncomeInfos: Array<PassiveIncomeInfo>
             let exchangeRateInfos: Array<ExchangeRateInfo>
-            if (importer.type === 'IbkrCsv') {
+            if (importer.reportType === 'IbkrCsv') {
               const importResult = await ibkrImporter(getReportPath(report.id))
               passiveIncomeInfos = importResult.passiveIncomeInfos
               exchangeRateInfos = importResult.exchangeRateInfos
             } else {
-              console.error(`Unknown importer type: ${{ type: importer.type }}`)
+              console.error(`Unknown importer type: ${{ type: importer.reportType }}`)
               continue
             }
             const currencyService = createCurrencyService({

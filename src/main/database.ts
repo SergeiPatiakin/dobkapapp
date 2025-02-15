@@ -1,7 +1,7 @@
 import Database from 'better-sqlite3'
 import path from 'path'
 import { app } from 'electron'
-import { FilingStatus, ImporterType, Mailbox, MailboxCursor, ReportStatus, RunSql } from '../common/ipc-types'
+import { FilingStatus, ReportType, Mailbox, MailboxCursor, ReportStatus, RunSql } from '../common/ipc-types'
 import { deserializeMailboxCursor, serializeMailboxCursor } from '../common/mailbox-cursor'
 import { PassiveIncomeType } from 'dobkap/lib/passive-income'
 
@@ -15,8 +15,7 @@ export const migrateDatabase = () => {
   ).all() as Array<{name: string}>
 
   if (migrationsTables.length === 0) {
-    // Migration 1
-    console.log('Migrating database from version 0 to version 1')
+    // Logic for migration 1
     db.prepare(
       `CREATE TABLE dobkapman_migrations (
       id INTEGER NOT NULL,
@@ -162,8 +161,20 @@ export const migrateDatabase = () => {
       'INSERT INTO dobkapman_migrations (id, name) VALUES (3, \'tax-payment-reference\')'
     ).run()
   }
-  // Logic for migration 4 and above goes here
-  if (dbMigrationVersion > 3) {
+  if (dbMigrationVersion < 4) {
+    // Logic for migration 4
+    db.prepare(
+      'ALTER TABLE reports ADD COLUMN type TEXT NOT NULL DEFAULT \'IbkrCsv\''
+    ).run()
+    db.prepare(
+      'ALTER TABLE importers RENAME COLUMN type TO report_type'
+    ).run()
+    db.prepare(
+      'INSERT INTO dobkapman_migrations (id, name) VALUES (4, \'report-type\')'
+    ).run()
+  }
+  // Logic for migration 5 and above goes here
+  if (dbMigrationVersion > 4) {
     throw new Error('Database corrupted')
   }
 }
@@ -172,6 +183,7 @@ export const getReportsByMailbox = (mailboxId: number) => {
   return db.prepare(`
     SELECT
       id AS id,
+      type AS type,
       importer_id AS importerId,
       mailbox_id AS mailboxId,
       mailbox_message_id AS mailboxMessageId,
@@ -184,6 +196,7 @@ export const getReportsByMailbox = (mailboxId: number) => {
     mailboxId,  
   }) as Array<{
     id: number,
+    type: ReportType,
     importerId: number | null,
     mailboxId: number,
     mailboxMessageId: number,
@@ -207,6 +220,7 @@ export const updateReport = (report: {
 }
 
 export const createReport = (report: {
+  type: ReportType
   importerId: number
   mailboxId: number
   mailboxMessageId: number
@@ -215,18 +229,21 @@ export const createReport = (report: {
 }) => {
   return db.prepare(`
   INSERT INTO reports (
+    type,
     importer_id,
     mailbox_id,
     mailbox_message_id,
     report_name,
     status
   ) VALUES (
+    $type,
     $importerId,
     $mailboxId,
     $mailboxMessageId,
     $reportName,
     $status
   ) RETURNING id`).get({
+    type: report.type,
     importerId: report.importerId,
     mailboxId: report.mailboxId,
     mailboxMessageId: report.mailboxMessageId,
@@ -435,7 +452,7 @@ export const getImporters = () => {
     SELECT
       id AS id,
       name AS name,
-      type AS type,
+      report_type AS reportType,
       taxpayer_profile_id AS taxpayerProfileId,
       mailbox_id AS mailboxId,
       from_filter AS fromFilter,
@@ -447,7 +464,7 @@ export const getImporters = () => {
   `).all({}) as Array<{
     id: number,
     name: string
-    type: ImporterType
+    reportType: ReportType
     taxpayerProfileId: number
     mailboxId: number
     fromFilter: string
@@ -459,7 +476,7 @@ export const getImporters = () => {
 
 export const createImporter = (importer: {
   name: string,
-  type: string,
+  reportType: string,
   fromFilter: string,
   subjectFilter: string,
   paymentNotes: string,
@@ -468,7 +485,7 @@ export const createImporter = (importer: {
   return db.prepare(`
     INSERT INTO importers(
       name,
-      type,
+      report_type,
       taxpayer_profile_id,
       mailbox_id,
       from_filter,
@@ -477,7 +494,7 @@ export const createImporter = (importer: {
       attachment_regex
     ) VALUES (
       $name,
-      $type,
+      $reportType,
       1,
       1,
       $fromFilter,
@@ -488,7 +505,7 @@ export const createImporter = (importer: {
     RETURNING id
   `).get({
     name: importer.name,
-    type: importer.type,
+    type: importer.reportType,
     fromFilter: importer.fromFilter,
     subjectFilter: importer.subjectFilter,
     paymentNotes: importer.paymentNotes,
@@ -501,7 +518,7 @@ export const createImporter = (importer: {
 export const updateImporter = (importer: {
   id: number,
   name: string,
-  type: string,
+  reportType: string,
   fromFilter: string,
   subjectFilter: string,
   paymentNotes: string,
@@ -510,7 +527,7 @@ export const updateImporter = (importer: {
   return db.prepare(`
     UPDATE importers SET
       name = $name,
-      type = $type,
+      report_type = $reportType,
       from_filter = $fromFilter,
       subject_filter = $subjectFilter,
       payment_notes = $paymentNotes,
@@ -519,7 +536,7 @@ export const updateImporter = (importer: {
   `).run({
     id: importer.id,
     name: importer.name,
-    type: importer.type,
+    reportType: importer.reportType,
     fromFilter: importer.fromFilter,
     subjectFilter: importer.subjectFilter,
     paymentNotes: importer.paymentNotes,

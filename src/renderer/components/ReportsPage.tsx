@@ -170,5 +170,19 @@ export const ReportsPage = (props: ReportsPageProps) => {
     { numPages > 1 &&
       <Pagination count={numPages} onChange={(_e, value) => setPage(value)} />
     }
+    <ButtonGroup>
+      <Button onClick={async () => {
+        ipcContextApi.importTrivialReport({
+          type: 'dividend',
+          payingEntity: 'ABC',
+          incomeDate: '2025-01-01',
+          incomeCurrencyCode: 'EUR',
+          incomeCurrencyAmount: 100,
+          whtCurrencyCode: 'EUR',
+          whtCurrencyAmount: 10,
+        })
+        queryClient.invalidateQueries()
+      }}>Add manual report</Button>
+    </ButtonGroup>
   </Container>
 }

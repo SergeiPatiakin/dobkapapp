@@ -2,6 +2,7 @@ import { PassiveIncomeType } from 'dobkap/lib/passive-income'
 import type { BrowserWindow } from 'electron'
 import { HolidayConf } from './holiday-conf'
 import { DateString } from './primitive-types'
+import { DayString } from 'dobkap/lib/data-types'
 
 export type ReportStatus = 'init' | 'processed'
 
@@ -54,6 +55,17 @@ export type ReportJobMessage = {
   attachmentName: string
 }
 
+// Serialized version of PassiveIncomeInfo
+export type TrivialReport = {
+  type: PassiveIncomeType
+  payingEntity: string
+  incomeDate: DayString
+  incomeCurrencyCode: string
+  incomeCurrencyAmount: number
+  whtCurrencyCode: string
+  whtCurrencyAmount: number
+}
+
 export type ErrorJobMessage = {
   type: 'error',
   message: string
@@ -93,7 +105,7 @@ export type TechnicalConf = {
   holidayConf: HolidayConf
 }
 
-export type ReportType = 'IbkrCsv'
+export type ReportType = 'IbkrCsv' | 'NativeIncomeJson'
 
 export type Importer = {
   id: number
@@ -139,6 +151,11 @@ export type ExportReport = IpcTypeDef<
   'export-report',
   number,
   void
+>
+export type ImportTrivialReport = IpcTypeDef<
+  'import-trivial-report',
+  TrivialReport,
+  number
 >
 export type DeleteReport = IpcTypeDef<
   'delete-report',
@@ -240,6 +257,7 @@ export type IpcMethods = {
   openUrl: OpenUrl
   runSql: RunSql
   getReports: GetReports
+  importTrivialReport: ImportTrivialReport
   exportReport: ExportReport
   deleteReport: DeleteReport
   getFilings: GetFilings
@@ -271,6 +289,7 @@ const ipcNames: IpcNames = {
   runSql: 'run-sql',
   getReports: 'get-reports',
   exportReport: 'export-report',
+  importTrivialReport: 'import-trivial-report',
   deleteReport: 'delete-report',
   getFilings: 'get-filings',
   updateFiling: 'update-filing',

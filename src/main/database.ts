@@ -221,7 +221,7 @@ export const updateReport = (report: {
 
 export const createReport = (report: {
   type: ReportType
-  importerId: number
+  importerId: number | null
   mailboxId: number
   mailboxMessageId: number
   reportName: string

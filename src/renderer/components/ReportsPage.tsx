@@ -6,6 +6,7 @@ import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt'
 import DownloadIcon from '@mui/icons-material/Download'
 import TrashIcon from '@mui/icons-material/Delete'
 import { useQueryClient } from '@tanstack/react-query'
+import { ReportManualImportDialog } from './ReportManualImportDialog'
 
 interface ReportsPageProps {
   reports: Array<Report>
@@ -95,6 +96,7 @@ export const ReportsPage = (props: ReportsPageProps) => {
   const queryClient = useQueryClient()
   const [page, setPage] = useState(1)
   const [deleteDialogState, setDeleteDialogState] = useState<DeleteDialogState | null>(null)
+  const [manualImportDialogState, setManualImportDialogState] = useState<{} | null>(null)
   const displayReports = useMemo(
     () => props.reports.slice(PAGE_SIZE * (page - 1), PAGE_SIZE * page),
     [page, props.reports],
@@ -136,6 +138,11 @@ export const ReportsPage = (props: ReportsPageProps) => {
         </DialogActions>
       </Dialog>
     </div>}
+    {manualImportDialogState &&
+      <ReportManualImportDialog
+        onClose={() => setManualImportDialogState(null)}
+      />
+    }
     <Table>
       <TableHead>
         <TableRow>
@@ -171,18 +178,9 @@ export const ReportsPage = (props: ReportsPageProps) => {
       <Pagination count={numPages} onChange={(_e, value) => setPage(value)} />
     }
     <ButtonGroup>
-      <Button onClick={async () => {
-        ipcContextApi.importTrivialReport({
-          type: 'dividend',
-          payingEntity: 'ABC',
-          incomeDate: '2025-01-01',
-          incomeCurrencyCode: 'EUR',
-          incomeCurrencyAmount: 100,
-          whtCurrencyCode: 'EUR',
-          whtCurrencyAmount: 10,
-        })
-        queryClient.invalidateQueries()
-      }}>Add manual report</Button>
+      <Button onClick={() => {
+        setManualImportDialogState({})
+      }}>Manually create report</Button>
     </ButtonGroup>
   </Container>
 }

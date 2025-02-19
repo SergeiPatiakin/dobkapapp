@@ -19,6 +19,7 @@ const PAGE_SIZE = 20
 
 const ReportTypeDescriptions: { [k in ReportType]: string} = {
   'IbkrCsv': 'InteractiveBrokers CSV',
+  'NativeIncomeJson': 'Dobkapapp JSON',
 }
 
 const UpsertImporterDialog = (props: UpsertDialogProps) => {

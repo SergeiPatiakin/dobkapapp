@@ -6,7 +6,7 @@ import { JobStore } from './job-store'
 import { getSearchCriteria, ImapClient, parseMessage } from './imap-utils'
 import { fireAndForget } from '../common/helpers'
 import { getFilingContent, getReportContent, getReportPath, getTechnicalConf, saveFilingContent, saveReportContent, updateTechnicalConf } from './filesystem'
-import { createCurrencyService, createHolidayService, PassiveIncomeInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate } from 'dobkap'
+import { createCurrencyService, createHolidayService, PassiveIncomeInfo, fillOpoForm, getFilingDeadline, ibkrImporter, OpoData, toNaiveDate, trivialImporter } from 'dobkap'
 import { decodeHolidayConf } from '../common/holiday-conf'
 import { getPassiveIncomeFilingInfo } from 'dobkap/lib/passive-income'
 import { ExchangeRateInfo } from 'dobkap/lib/currencies'
@@ -34,6 +34,19 @@ const handlers: IpcHandlerFns = {
       const reportContent = getReportContent(reportId)
       fs.writeFileSync(r.filePath, reportContent)
     }
+  },
+
+  importTrivialReport: async ({ arg: report }) => {
+    const { id: reportId } = createReport({
+      type: 'NativeIncomeJson',
+      importerId: null,
+      mailboxId: 1, // Should really be NULL
+      mailboxMessageId: 0, // Should really be NULL
+      reportName: 'Manual report',
+      status: 'init',
+    })
+    saveReportContent(reportId, JSON.stringify(report, null, 4))
+    return reportId
   },
 
   deleteReport: async ({ arg: id }) => {
@@ -193,18 +206,17 @@ const handlers: IpcHandlerFns = {
           let passiveIncomeCounter = 0
           for (const report of unprocessedReports) {
             const importer = importers.find(im => im.id === report.importerId)
-            if (!importer) {
-              console.error(`Cannot find importer. ${{ importerId: report.importerId }}`)
-              continue
-            }
             let passiveIncomeInfos: Array<PassiveIncomeInfo>
             let exchangeRateInfos: Array<ExchangeRateInfo>
-            if (importer.reportType === 'IbkrCsv') {
+            if (report.type === 'IbkrCsv') {
               const importResult = await ibkrImporter(getReportPath(report.id))
               passiveIncomeInfos = importResult.passiveIncomeInfos
               exchangeRateInfos = importResult.exchangeRateInfos
+            } else if (report.type === 'NativeIncomeJson') {
+              passiveIncomeInfos = await trivialImporter(getReportPath(report.id))
+              exchangeRateInfos = []
             } else {
-              console.error(`Unknown importer type: ${{ type: importer.reportType }}`)
+              console.error(`Unknown importer type: ${{ type: report.type }}`)
               continue
             }
             const currencyService = createCurrencyService({

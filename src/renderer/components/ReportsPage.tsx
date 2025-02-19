@@ -96,7 +96,7 @@ export const ReportsPage = (props: ReportsPageProps) => {
   const queryClient = useQueryClient()
   const [page, setPage] = useState(1)
   const [deleteDialogState, setDeleteDialogState] = useState<DeleteDialogState | null>(null)
-  const [manualImportDialogState, setManualImportDialogState] = useState<{} | null>(null)
+  const [manualImportDialogState, setManualImportDialogState] = useState<Record<string, never> | null>(null)
   const displayReports = useMemo(
     () => props.reports.slice(PAGE_SIZE * (page - 1), PAGE_SIZE * page),
     [page, props.reports],

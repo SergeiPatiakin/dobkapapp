@@ -1,5 +1,3 @@
-import { formatRsdcAmount } from '../../common/helpers'
-import { Filing } from '../../common/ipc-types'
 import {
   Button,
   ButtonGroup,

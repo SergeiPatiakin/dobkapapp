@@ -26,7 +26,6 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
 
 ### Platforms
   - Windows x64
-  - Mac x64
   - Mac arm64 (Apple Silicon)
 
 ## User guide

@@ -61,6 +61,9 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
         await ipcContextApi.updateFiling({
           ...props.filing,
           taxPaymentReference: paymentReference,
+          status: (props.filing.status == 'init' && paymentReference != '')
+            ? 'filed'
+            : props.filing.status
         })
         queryClient.invalidateQueries({ queryKey: ['filings'] })
         props.onClose()

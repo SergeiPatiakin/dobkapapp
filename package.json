@@ -1,6 +1,6 @@
 {
   "name": "dobkapapp",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Desktop application to automate passive income tax filings",
   "main": ".webpack/main",
   "scripts": {

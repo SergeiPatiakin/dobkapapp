@@ -505,7 +505,7 @@ export const createImporter = (importer: {
     RETURNING id
   `).get({
     name: importer.name,
-    type: importer.reportType,
+    reportType: importer.reportType,
     fromFilter: importer.fromFilter,
     subjectFilter: importer.subjectFilter,
     paymentNotes: importer.paymentNotes,

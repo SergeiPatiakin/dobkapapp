@@ -16,15 +16,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.20.0
-          cache: "npm"
       
       - name: Install NPM dependencies
+        working-directory: ./dobkapapp
         run: npm ci
       
       - name: Test
+        working-directory: ./dobkapapp
         run: npm run test
       
       - name: Lint
+        working-directory: ./dobkapapp
         run: npm run lint
 
   build-macos-arm64:
@@ -35,23 +37,24 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.20.0
-          cache: "npm"
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
       - name: Install NPM dependencies
+        working-directory: ./dobkapapp
         run: npm ci
 
       - name: Make
+        working-directory: ./dobkapapp
         run: npm run make
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: macos-arm64-binary
-          path: out/make/zip/darwin/arm64/**
+          path: dobkapapp/out/make/zip/darwin/arm64/**
 
   build-windows-x64:
     runs-on: windows-latest
@@ -61,16 +64,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.20.0
-          cache: "npm"
       
       - name: Install NPM dependencies
+        working-directory: ./dobkapapp
         run: npm ci
 
       - name: Make
+        working-directory: ./dobkapapp
         run: npm run make
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: windows-x64-binary
-          path: out/make/squirrel.windows/x64/**
+          path: dobkapapp/out/make/squirrel.windows/x64/**

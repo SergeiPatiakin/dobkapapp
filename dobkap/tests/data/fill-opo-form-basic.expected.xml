@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:PodaciPoreskeDeklaracije xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://pid.purs.gov.rs">
+  <ns1:PodaciOPrijavi>
+    <ns1:VrstaPrijave>1</ns1:VrstaPrijave>
+    <ns1:ObracunskiPeriod>2020-07</ns1:ObracunskiPeriod>
+    <ns1:DatumOstvarivanjaPrihoda>2020-07-16</ns1:DatumOstvarivanjaPrihoda>
+    <ns1:Rok>1</ns1:Rok>
+    <ns1:DatumDospelostiObaveze>2020-08-16</ns1:DatumDospelostiObaveze>
+  </ns1:PodaciOPrijavi>
+  <ns1:PodaciOPoreskomObvezniku>
+    <ns1:PoreskiIdentifikacioniBroj>1234567890123</ns1:PoreskiIdentifikacioniBroj>
+    <ns1:ImePrezimeObveznika>
+      <![CDATA[Jован Jовановић]]>
+    </ns1:ImePrezimeObveznika>
+    <ns1:UlicaBrojPoreskogObveznika>
+      <![CDATA[Terazije 1/1]]>
+    </ns1:UlicaBrojPoreskogObveznika>
+    <ns1:PrebivalisteOpstina>016</ns1:PrebivalisteOpstina>
+    <ns1:JMBGPodnosiocaPrijave>1234567890123</ns1:JMBGPodnosiocaPrijave>
+    <ns1:TelefonKontaktOsobe>0611111111</ns1:TelefonKontaktOsobe>
+    <ns1:ElektronskaPosta>jovan@example.com</ns1:ElektronskaPosta>
+  </ns1:PodaciOPoreskomObvezniku>
+  <ns1:PodaciONacinuOstvarivanjaPrihoda>
+    <ns1:NacinIsplate>3</ns1:NacinIsplate>
+    <ns1:Ostalo>Isplata na brokerski racun</ns1:Ostalo>
+  </ns1:PodaciONacinuOstvarivanjaPrihoda>
+  <ns1:DeklarisaniPodaciOVrstamaPrihoda>
+    <ns1:PodaciOVrstamaPrihoda>
+      <ns1:RedniBroj>1</ns1:RedniBroj>
+      <ns1:SifraVrstePrihoda>111402000</ns1:SifraVrstePrihoda>
+      <ns1:BrutoPrihod>11700.00</ns1:BrutoPrihod>
+      <ns1:OsnovicaZaPorez>11700.00</ns1:OsnovicaZaPorez>
+      <ns1:ObracunatiPorez>1755.00</ns1:ObracunatiPorez>
+      <ns1:PorezPlacenDrugojDrzavi>1170.00</ns1:PorezPlacenDrugojDrzavi>
+      <ns1:PorezZaUplatu>585.00</ns1:PorezZaUplatu>
+    </ns1:PodaciOVrstamaPrihoda>
+  </ns1:DeklarisaniPodaciOVrstamaPrihoda>
+  <ns1:Ukupno>
+    <ns1:FondSati>0.00</ns1:FondSati>
+    <ns1:BrutoPrihod>11700.00</ns1:BrutoPrihod>
+    <ns1:OsnovicaZaPorez>11700.00</ns1:OsnovicaZaPorez>
+    <ns1:ObracunatiPorez>1755.00</ns1:ObracunatiPorez>
+    <ns1:PorezPlacenDrugojDrzavi>1170.00</ns1:PorezPlacenDrugojDrzavi>
+    <ns1:PorezZaUplatu>585.00</ns1:PorezZaUplatu>
+    <ns1:OsnovicaZaDoprinose>0.00</ns1:OsnovicaZaDoprinose>
+    <ns1:PIO>0.00</ns1:PIO>
+    <ns1:ZDRAVSTVO>0.00</ns1:ZDRAVSTVO>
+    <ns1:NEZAPOSLENOST>0.00</ns1:NEZAPOSLENOST>
+  </ns1:Ukupno>
+  <ns1:Kamata>
+    <ns1:PorezZaUplatu>0</ns1:PorezZaUplatu>
+    <ns1:OsnovicaZaDoprinose>0</ns1:OsnovicaZaDoprinose>
+    <ns1:PIO>0</ns1:PIO>
+    <ns1:ZDRAVSTVO>0</ns1:ZDRAVSTVO>
+    <ns1:NEZAPOSLENOST>0</ns1:NEZAPOSLENOST>
+  </ns1:Kamata>
+  <ns1:PodaciODodatnojKamati></ns1:PodaciODodatnojKamati>
+</ns1:PodaciPoreskeDeklaracije>

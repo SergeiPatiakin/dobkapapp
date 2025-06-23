@@ -1,0 +1,9 @@
+{
+    "type": "dividend",
+    "payingEntity": "ABC",
+    "incomeDate": "2025-01-01",
+    "incomeCurrencyCode": "EUR",
+    "incomeCurrencyAmount": 100,
+    "whtCurrencyCode": "EUR",
+    "whtCurrencyAmount": 10
+}

@@ -1,0 +1,13 @@
+Statement,Header,Field Name,Field Value
+Statement,Data,BrokerAddress,"Two Pickwick Plaza, Greenwich, CT 06830"
+Statement,Data,Period,"January 12, 2023"
+Dividends,Header,Currency,Date,Description,Amount
+Dividends,Data,EUR,2023-01-12,ABC(FR0000000001) Cash Dividend EUR 0.60 per Share (Ordinary Dividend),60.0
+Dividends,Data,Total,,,60.0
+Dividends,Data,GBP,2023-01-12,DEF1(GB0000000001) Cash Dividend GBP 0.70 per Share (Ordinary Dividend),70.0
+Dividends,Data,GBP,2023-01-12,DEF2(GB0000000002) Cash Dividend GBP 0.71 per Share (Ordinary Dividend),71.0
+Dividends,Data,GBP,2023-01-12,DEF2(GB0000000002) Cash Dividend GBP 0.72 per Share (Ordinary Dividend),72.0
+Dividends,Data,Total,,,213.0
+Dividends,Data,Total in EUR,,,244.0
+Dividends,Data,Total Dividends in EUR,,,304.0
+Notes/Legal Notes,Data,,SIPC Member

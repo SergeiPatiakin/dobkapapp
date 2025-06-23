@@ -1,0 +1,255 @@
+﻿Statement,Header,Field Name,Field Value
+Statement,Data,BrokerName,Interactive Brokers LLC
+Statement,Data,BrokerAddress,"Two Pickwick Plaza, Greenwich, CT 06830"
+Statement,Data,Title,Activity Statement
+Statement,Data,Period,"January 13, 2023"
+Statement,Data,WhenGenerated,"2023-01-16, 03:52:11 EST"
+Account Information,Header,Field Name,Field Value
+Account Information,Data,Name,Jovan Jovanovic
+Account Information,Data,Account,U***1234
+Account Information,Data,Account Type,Individual
+Account Information,Data,Customer Type,Individual
+Account Information,Data,Account Capabilities,Margin
+Account Information,Data,Base Currency,EUR
+Net Asset Value,Header,Asset Class,Prior Total,Current Long,Current Short,Current Total,Change
+Net Asset Value,Data,Cash ,30000.00,30000.00,0,30000.00,0
+Net Asset Value,Data,Stock,10000.00,10000.00,0,10000.00,0.00
+Net Asset Value,Data,Interest Accruals,0,0,0,0,0
+Net Asset Value,Data,Dividend Accruals,60.00,0,0,0,-60.00
+Net Asset Value,Data,Total,40060.00,40054.00,0,40054.00,-6.00
+Net Asset Value,Header,Time Weighted Rate of Return
+Net Asset Value,Data,0.000000000%
+Change in NAV,Header,Field Name,Field Value
+Change in NAV,Data,Starting Value,40060.00
+Change in NAV,Data,Mark-to-Market,40054.00
+Change in NAV,Data,Dividends,60.0
+Change in NAV,Data,Withholding Tax,-6.00
+Change in NAV,Data,Change in Dividend Accruals,-60.00
+Change in NAV,Data,Change in Interest Accruals,0
+Change in NAV,Data,Other FX Translations,0
+Change in NAV,Data,Ending Value,40054.00
+Mark-to-Market Performance Summary,Header,Asset Category,Symbol,Prior Quantity,Current Quantity,Prior Price,Current Price,Mark-to-Market P/L Position,Mark-to-Market P/L Transaction,Mark-to-Market P/L Commissions,Mark-to-Market P/L Other,Mark-to-Market P/L Total,Code
+Mark-to-Market Performance Summary,Data,Stocks,ABC,200,200,50.0000,50.0000,0,0,0,0,0,
+Mark-to-Market Performance Summary,Data,Total,,,,,,0,0,0,0,0,
+Mark-to-Market Performance Summary,Data,Forex,EUR,30000.00,30000.00,1.0000,1.0000,0,0,0,0,0,
+Mark-to-Market Performance Summary,Data,Total,,,,,,0,0,0,0,0,
+Mark-to-Market Performance Summary,Data,Total (All Assets),,,,,,0,0,0,0,0,
+Positions and Mark-to-Market Profit and Loss,Header,Asset Class,Currency,Symbol,Description,Prior Quantity,Quantity,Prior Price,Price,Prior Market Value,Market Value,Position,Trading,Comm.,Other,Total
+Positions and Mark-to-Market Profit and Loss,Data,Stocks,EUR,ABC,ABC EXAMPLE CORP,200,200,50.0000,50.0000,0,0,0,0,0,0,0
+Positions and Mark-to-Market Profit and Loss,Data,Total,EUR,,,,,,,10000.00,10000.00,0,0,0,0,0
+Positions and Mark-to-Market Profit and Loss,Data,Total Stocks in EUR,EUR,,,,,,,10000.00,10000.00,0,0,0,0,0
+Positions and Mark-to-Market Profit and Loss,Data,Forex,EUR,EUR, ,30000.00,30000.00,1,1,30000.00,30000.00,0,0,0,0,0
+Positions and Mark-to-Market Profit and Loss,Data,Total,EUR,,,,,,,30000.00,30000.00,0,0,0,0,0
+Positions and Mark-to-Market Profit and Loss,Data,Total (All Assets),EUR,,,,,,,0,0,0,0,0
+Realized & Unrealized Performance Summary,Header,Asset Category,Symbol,Cost Adj.,Realized S/T Profit,Realized S/T Loss,Realized L/T Profit,Realized L/T Loss,Realized Total,Unrealized S/T Profit,Unrealized S/T Loss,Unrealized L/T Profit,Unrealized L/T Loss,Unrealized Total,Total,Code
+Realized & Unrealized Performance Summary,Data,Stocks,ABC,0,0,0,0,0,0,0,0,0,0,0,0,
+Realized & Unrealized Performance Summary,Data,Total,,0,0,0,0,0,0,0,0,0,0,0,0,
+Realized & Unrealized Performance Summary,Data,Total,,0,0,0,0,0,0,0,0,0,0,0,0,
+Realized & Unrealized Performance Summary,Data,Total (All Assets),,0,0,0,0,0,0,0,0,0,0,0,0,
+Month & Year to Date Performance Summary,Header,Asset Category,Symbol,Description,Mark-to-Market MTD,Mark-to-Market YTD,Realized S/T MTD,Realized S/T YTD,Realized L/T MTD,Realized L/T YTD
+Month & Year to Date Performance Summary,Data,Stocks,ABC,ABC EXAMPLE CORP,0,0,0,0,0,0
+Month & Year to Date Performance Summary,Data,Total,,,0,0,0,0,0,0
+Month & Year to Date Performance Summary,Data,Total (All Assets),,,0,0,0,0,0,0
+Cash Report,Header,Currency Summary,Currency,Total,Securities,Futures,Month to Date,Year to Date,
+Cash Report,Data,Starting Cash,Base Currency Summary,30000.00,30000.00,0,,,
+Cash Report,Data,Dividends,Base Currency Summary,60.0,60.0,0,60.0,60.0,
+Cash Report,Data,Broker Interest Paid and Received,Base Currency Summary,0,0,0,0,0,
+Cash Report,Data,Withholding Tax,Base Currency Summary,-6.00,-6.00,0,-6.00,-6.00,
+Cash Report,Data,Cash FX Translation Gain/Loss,Base Currency Summary,0,0,0,,,
+Cash Report,Data,Ending Cash,Base Currency Summary,30000.00,30000.00,0,,,
+Cash Report,Data,Ending Settled Cash,Base Currency Summary,30054.00,30054.00,0,,,
+Cash Report,Data,Starting Cash,EUR,30000.00,30000.00,0,,,
+Cash Report,Data,Dividends,EUR,60.0,60.0,0,60.0,60.0,
+Cash Report,Data,Broker Interest Paid and Received,EUR,0,0,0,0,0,
+Cash Report,Data,Withholding Tax,EUR,-6.00,-6.00,0,-6.00,-6.00,
+Cash Report,Data,Ending Cash,EUR,30054.00,30054.00,0,,,
+Cash Report,Data,Ending Settled Cash,EUR,30054.00,30054.00,0,,,
+Statement of Funds,Header,Currency,Report Date,Activity Date,Description,Debit,Credit,Balance
+Statement of Funds,Data,Base Currency Summary,2023-01-13,,Opening Balance, , ,30000.00
+Statement of Funds,Data,Base Currency Summary,2023-01-13,2023-01-12,ABC(SG0000123456) Cash Dividend EUR 0.30 per Share (Ordinary Dividend), ,60.0,30060.00
+Statement of Funds,Data,Base Currency Summary,2023-01-13,2023-01-12,ABC(SG0000123456) Cash Dividend EUR 0.30 per Share - SG Tax,-6.00, ,30054.00
+Statement of Funds,Data,Base Currency Summary,2023-01-13,,FX Translation P&L, ,0,30054.00
+Statement of Funds,Data,Base Currency Summary,2023-01-13,,Closing Balance,-6.00,60.0,30054.00
+Change in Position Value,Header,Asset Class,Currency,Field Name,Field Value
+Change in Position Value,Data,STK,EUR,Prior Period Value,10000.00
+Change in Position Value,Data,STK,EUR,MTM P/L On Prior Period,0
+Change in Position Value,Data,STK,EUR,Positions FX Translation P/L,0
+Change in Position Value,Data,STK,EUR,End Of Period Value,10000.00
+Change in Position Value,Data,STK,EUR,Prior Period Value,10000.00
+Change in Position Value,Data,STK,EUR,MTM P/L On Prior Period,0
+Change in Position Value,Data,STK,EUR,End Of Period Value,10000.00
+Open Positions,Header,DataDiscriminator,Asset Category,Currency,Symbol,Open,Quantity,Mult,Cost Price,Cost Basis,Close Price,Value,Unrealized P/L,Code
+Open Positions,Data,Summary,Stocks,EUR,ABC,-,200,1,50.000,10000.00,50.000,10000.00,0,SY
+Open Positions,Data,Lot,Stocks,EUR,ABC,"2022-01-01, 07:00:00",200,,50.000,10000.00,50.000,10000.00,0,ST
+Open Positions,Total,,Stocks,EUR,,,,,,10000.00,,10000.00,0,
+Open Positions,Total,,Stocks,EUR,,,,,,10000.00,,10000.00,0,
+Open Positions,Notes,Code SY: Positions that may be eligible for Stock Yield. Potential for additional annualized income of 1.00 EUR
+Forex Balances,Header,Asset Category,Currency,Description,Open,Quantity,Cost Price,Cost Basis in EUR,Close Price,Value in EUR,Unrealized P/L in EUR,Code
+Forex Balances,Data,Forex,EUR,EUR,-,30000.00,1,30000.00,1,30000.00,0,
+Forex Balances,Data,Total,,,,,,30000.00,,30000.00,0,
+"No exercises, assignments or expirations for January 13, 2023"
+MTM P&L On Previous  Day's  Positions,Header,Asset Category,Currency,Symbol,Description,Date,Price,MTM P&L On Previous  Day's  Positions
+MTM P&L On Previous  Day's  Positions,Data,Stocks,EUR,ABC,ABC EXAMPLE CORP,2023-01-13,0,0
+MTM P&L On Previous  Day's  Positions,Data,Total,,,,,,0
+MTM P&L On Previous  Day's  Positions,Data,Total in EUR,,,,,,0
+Dividends,Header,Currency,Date,Description,Amount
+Dividends,Data,EUR,2023-01-12,ABC(SG0000123456) Cash Dividend EUR 0.30 per Share (Ordinary Dividend),60.0
+Dividends,Data,Total,,,60.0
+Withholding Tax,Header,Currency,Date,Description,Amount,Code
+Withholding Tax,Data,EUR,2023-01-12,ABC(SG0000123456) Cash Dividend EUR 0.30 per Share - SG Tax,-6.00,
+Withholding Tax,Data,Total,,,-6.00,
+Interest,Header,Currency,Date,Description,Amount
+Interest,Data,EUR,2023-01-03,EUR Credit Interest for Dec-2022,12.34
+Interest,Data,Total,,,12.34
+Interest Accruals,Header,Currency,Field Name,Field Value
+Interest Accruals,Data,Base Currency Summary,Starting Accrual Balance,0
+Interest Accruals,Data,Base Currency Summary,Interest Accrued,0
+Interest Accruals,Data,Base Currency Summary,Accrual Reversal,0
+Interest Accruals,Data,Base Currency Summary,FX Translation,0
+Interest Accruals,Data,Base Currency Summary,Ending Accrual Balance,0
+Interest Accruals,Data,EUR,Starting Accrual Balance,0
+Interest Accruals,Data,EUR,Interest Accrued,0
+Interest Accruals,Data,EUR,Accrual Reversal,0
+Interest Accruals,Data,EUR,Ending Accrual Balance,0
+Dividends,Header,Currency,Date,Description,Amount,Code
+Dividends,Data,EUR,2023-01-12,ABC(SG0000123456) Cash Dividend EUR 0.30 per Share (Ordinary Dividend),60.0,
+Dividends,Data,Total,,,60.0,
+Change in Dividend Accruals,Header,Asset Category,Currency,Symbol,Date,Ex Date,Pay Date,Quantity,Tax,Fee,Gross Rate,Gross Amount,Net Amount,Code
+Change in Dividend Accruals,Data,Starting Dividend Accruals in EUR,,,,,,,,,,,60.00,
+Change in Dividend Accruals,Data,Stocks,EUR,ABC,2022-12-30,2023-01-02,2023-01-12,130,-6.00,0,0.3,-60.0,-54.00,Re
+Change in Dividend Accruals,Data,Total,,,,,,,-6.00,0,,-60.0,-54.00,
+Change in Dividend Accruals,Data,Ending Dividend Accruals in EUR,,,,,,,,,,,0,
+Interest Accruals,Header,Currency,Field Name,Field Value
+Interest Accruals,Data,Base Currency Summary,Starting Accrual Balance,0
+Interest Accruals,Data,Base Currency Summary,Interest Accrued,0
+Interest Accruals,Data,Base Currency Summary,Accrual Reversal,0
+Interest Accruals,Data,Base Currency Summary,FX Translation,0
+Interest Accruals,Data,Base Currency Summary,Ending Accrual Balance,0
+Interest Accruals,Data,EUR,Starting Accrual Balance,0
+Interest Accruals,Data,EUR,Interest Accrued,0
+Interest Accruals,Data,EUR,Accrual Reversal,0
+Interest Accruals,Data,EUR,Ending Accrual Balance,0
+Financial Instrument Information,Header,Asset Category,Symbol,Description,Conid,Security ID,Listing Exch,Multiplier,Type,Code
+Financial Instrument Information,Data,Stocks,ABC,ABC EXAMPLE CORP,11111111,SG0000123456,SGX,1,REIT,
+Base Currency Exchange Rate,Header,Currency,Rate
+Base Currency Exchange Rate,Data,AED,0.251330
+Base Currency Exchange Rate,Data,AUD,0.644100
+Base Currency Exchange Rate,Data,BGN,0.511290
+Base Currency Exchange Rate,Data,BRL,0.181140
+Base Currency Exchange Rate,Data,CAD,0.689070
+Base Currency Exchange Rate,Data,CHF,0.996220
+Base Currency Exchange Rate,Data,CNH,0.137640
+Base Currency Exchange Rate,Data,CNY,0.137720
+Base Currency Exchange Rate,Data,CZK,0.041667
+Base Currency Exchange Rate,Data,DKK,0.134410
+Base Currency Exchange Rate,Data,GBP,1.129200
+Base Currency Exchange Rate,Data,HKD,0.118210
+Base Currency Exchange Rate,Data,HUF,0.002522
+Base Currency Exchange Rate,Data,ILS,0.270230
+Base Currency Exchange Rate,Data,INR,0.011357
+Base Currency Exchange Rate,Data,JPY,0.007220
+Base Currency Exchange Rate,Data,KRW,0.000746
+Base Currency Exchange Rate,Data,MXN,0.049202
+Base Currency Exchange Rate,Data,NOK,0.093506
+Base Currency Exchange Rate,Data,NZD,0.589360
+Base Currency Exchange Rate,Data,PLN,0.213080
+Base Currency Exchange Rate,Data,RON,0.202200
+Base Currency Exchange Rate,Data,RUB,0.013469
+Base Currency Exchange Rate,Data,SAR,0.245770
+Base Currency Exchange Rate,Data,SEK,0.088745
+Base Currency Exchange Rate,Data,SGD,0.699680
+Base Currency Exchange Rate,Data,THB,0.028093
+Base Currency Exchange Rate,Data,TRY,0.049082
+Base Currency Exchange Rate,Data,USD,0.923120
+Base Currency Exchange Rate,Data,ZAR,0.054962
+Codes,Header,Code,Meaning,Code (Cont.),Meaning (Cont.)
+Codes,Data,A,Assignment
+Codes,Data,ADR,ADR Fee Accrual
+Codes,Data,AEx,Automatic exercise for dividend-related recommendation.
+Codes,Data,AFx,AutoFX conversion resulting from trading
+Codes,Data,Adj,Adjustment
+Codes,Data,Al,Allocation
+Codes,Data,Aw,Away Trade
+Codes,Data,B,Automatic Buy-in
+Codes,Data,Bo,Direct Borrow
+Codes,Data,C,Closing Trade
+Codes,Data,CD,Cash Delivery
+Codes,Data,CP,Complex Position
+Codes,Data,Ca,Cancelled
+Codes,Data,Co,Corrected Trade
+Codes,Data,Cx,Part or all of this transaction was a Crossing executed as dual agent by IB for two IB customers
+Codes,Data,ETF,ETF Creation/Redemption
+Codes,Data,Ep,Resulted from an Expired Position
+Codes,Data,Ex,Exercise
+Codes,Data,FP,"IB acted as agent for the fractional share portion of this trade, which was executed by an IB affiliate as principal."
+Codes,Data,FPA,IB acted as agent for both the fractional share portion and the whole share portion of this trade; the fractional share portion was executed by an IB Affiliate as principal.
+Codes,Data,G,Trade in Guaranteed Account Segment
+Codes,Data,GEA,Exercise or Assignment resulting from offsetting positions
+Codes,Data,HC,Highest Cost tax basis election
+Codes,Data,HFI,Investment Transferred to Hedge Fund
+Codes,Data,HFR,Redemption from Hedge Fund
+Codes,Data,I,Internal Transfer
+Codes,Data,IA,This transaction was executed against an IB affiliate
+Codes,Data,INV,Investment Transfer from Investor
+Codes,Data,IPO,This transaction was executed as part of an IPO in which IB was a member of the selling group and is classified as a Principal trade.
+Codes,Data,L,Ordered by IB (Margin Violation)
+Codes,Data,LD,Adjusted by Loss Disallowed from Wash Sale
+Codes,Data,LI,"Last In, First Out (LIFO) tax basis election"
+Codes,Data,LT,Long Term P/L
+Codes,Data,Lo,Direct Loan
+Codes,Data,M,Entered manually by IB
+Codes,Data,MEx,Manual exercise for dividend-related recommendation.
+Codes,Data,ML,Maximize Losses tax basis election
+Codes,Data,MLG,Maximize Long Term Gain tax basis election
+Codes,Data,MLL,Maximize Long Term Loss tax basis election
+Codes,Data,MSG,Maximize Short Term Gain tax basis election
+Codes,Data,MSL,Maximize Short Term Loss tax basis election
+Codes,Data,O,Opening Trade
+Codes,Data,P,Partial Execution
+Codes,Data,PI,Price Improvement
+Codes,Data,Po,Interest or Dividend Accrual Posting
+Codes,Data,Pr,Part or all of this transaction was executed by the Exchange as a Crossing by IB against an IB affiliate and is therefore classified as a Principal and not an agency trade
+Codes,Data,R,Dividend Reinvestment
+Codes,Data,RED,Redemption to Investor
+Codes,Data,RI,Recurring Investment
+Codes,Data,RP,"IB acted as agent for the fractional share portion of this trade, which was executed by an IB affiliate as riskless principal."
+Codes,Data,RPA,IB acted as agent for both the fractional share portion and the whole share portion of this trade; the fractional share portion was executed by an IB Affiliate as riskless principal.
+Codes,Data,Re,Interest or Dividend Accrual Reversal
+Codes,Data,Ri,Reimbursement
+Codes,Data,SI,This order was solicited by Interactive Brokers
+Codes,Data,SL,Specific Lot tax basis election
+Codes,Data,SO,This order was marked as solicited by your Introducing Broker
+Codes,Data,SS,Customer designated this trade for shortened settlement and so is subject to execution at prices above the prevailing market
+Codes,Data,ST,Short Term P/L
+Codes,Data,SY,Positions that may be eligible for Stock Yield. Potential for additional annualized income of 1.00 EUR
+Codes,Data,T,Transfer
+Codes,Data,Un,Unvested shares from stock grant
+Notes/Legal Notes,Header,Type,Note
+Notes/Legal Notes,Data,Notes,"Most stock exchange transactions settle on the trade date plus two business days. Options, futures and US open-end mutual fund transactions settle on trade date plus one business day. (Some exchanges and other transaction types may have longer or shorter settlement periods.) Ending settled cash reflects the cash that has actually settled.  "
+Notes/Legal Notes,Data,Notes,Initial and maintenance margin requirements are available within the Account Window of the Trader Workstation.
+Notes/Legal Notes,Data,Notes,"Interactive Brokers LLC receives compensation from fund companies in connection with the purchase and holding of fund shares by customers of Interactive Brokers LLC. Such compensation includes, but is not limited to, Rule 12b-1 fees that are paid out of the funds assets. The source and amount of any remuneration received by Interactive Brokers LLC in connection with a transaction will be furnished upon written request of the customer.  IB may share a portion of the compensation received from fund companies with your financial advisor or introducing broker."
+Notes/Legal Notes,Data,Notes,Quantities preceded by a "-" sign indicate sell transactions. Other transactions are purchases. 
+Notes/Legal Notes,Data,Notes,"IB acts as agent in executing the fractional share portion of your order. In certain circumstances, IB routes the fractional portion of your order to an affiliate, which may execute the fractional portion of the order as principal. In such circumstances, this is indicated by the codes associated with the trade. If an IB affiliate acts as principal in executing any fractional share portion of your order, the order will be executed at the price displayed for the opposite side of the NBBO from your order (the offer if you are buying and the bid if you are selling) at the time of execution. If an IB affiliate is acting as riskless principal in connection with filling the fractional share portion of your order, the affiliate will execute the fractional share portion of your order at the price it receives for the execution of the whole share."
+Notes/Legal Notes,Data,Notes,"In case of partial executions, commissions are charged on the total quantity executed on the original order. The commission is displayed on the first partial execution only."
+Notes/Legal Notes,Data,Notes,Each closed lot indicated above with a reference to note (6) was chosen by the end of the trading day to be sold versus the specific opening purchase identified in that row.
+Notes/Legal Notes,Data,Notes,Trade execution times are displayed in Eastern Time.
+Notes/Legal Notes,Data,Notes,Applicable commodity Regulatory Fees for your transactions are available on the IB website at www.interactivebrokers.com/en/accounts/fees/exchangeAndRegulatoryFees.php.
+Notes/Legal Notes,Data,Notes,"Borrow Fee Rate represents the cost to borrow stock expressed in percent per annum. It is applied to the cash collateral amount on the stock borrow contract and is separate from any interest earned on credit cash balances. Similarly, Loan Fee Rate represents the benefit to lend stock. A positive rate indicates a cost to the borrower/benefit to the lender and a negative rate indicates a benefit to the borrower/cost to the lender. In general, the fee rates for hard-to-borrow stocks are higher than for normal availability stocks."
+Notes/Legal Notes,Data,Notes,Interest Rate on Customer Collateral represents the interest paid on the collateral posted to the customer's account and received from lending stock.  A positive rate indicates a benefit to the lender.
+Notes/Legal Notes,Data,Notes,"The closing prices on this Activity Statement are indicative and may come from third-party sources. Interactive Brokers does not warrant the accuracy of the prices provided by third-party sources. Due to time zone differences, certain non-US mutual funds may deliver closing prices after the Activity Statement has been produced and the closing prices for such funds will reflect the previous day's price."
+Notes/Legal Notes,Data,Notes,All Market Data and Research services are provided through Global Financial Information Services (GmbH).
+Notes/Legal Notes,Data,Notes,"Market data is provided by Global Financial Information Services (GmbH). Your local broker collects amounts owed for fees and tax for such data on behalf of Global Financial Information Services (GmbH). Note, you are responsible for any applicable taxes relating to the provision of these services."
+Notes/Legal Notes,Data,Fixed Income Notes,"Call features for bonds or preferred stocks may affect the yield. For zero coupon, compound interest and multiplier securities, there are no periodic payments and securities may be callable below maturity value without notice to holder unless registered. For asset-backed securities, the actual yield may vary depending on the speed at which the underlying note is pre-paid. For additional information regarding bond yield, please contact the IB Help Desk at: help@interactivebrokers.com. If this debt security is unrated by a nationally recognized statistical rating organization, it may pose a high risk of default. You should consult a financial advisor to determine whether unrated bonds are appropriate for your portfolio in light of your goals and your financial circumstances. Fees charged by bond trading centers are included in the cost of bond transactions."
+Notes/Legal Notes,Data,Legal Notes,"Please promptly report any inaccuracy or discrepancy in this statement, or in your account. Contact the IB Customer Service Department in writing using the form available on the IB website. You may also contact IB by phone, but if you report an error by phone, you should re-confirm such oral communication in writing in order to protect your rights, including rights under the Securities Investor Protection Act (SIPA).Interactive Brokers LLC, www.interactivebrokers.com, 877-442-2757 (U.S.)Interactive Brokers (UK) (Ltd), www.interactivebrokers.co.uk, 00800-42-276537 (Intl)Interactive Brokers Canada Inc., www.interactivebrokers.ca, 877-745-4222 (Can.)"
+Notes/Legal Notes,Data,Legal Notes,"Unless otherwise noted, Interactive Brokers acted as agent in the execution of the above transactions. For those exchanges where IB is not a direct clearing member or custodian, IB may use one of the following clearing agents or sub-custodians: Interactive Brokers Australia Pty Limited; Interactive Brokers Canada Inc.; Interactive Brokers Central Europe Zrt.; Interactive Brokers Hong Kong Limited; Interactive Brokers Securities Japan, Inc.; Interactive Brokers (U.K.) Limited; IBKR Financial Services AG; ABN Amro Clearing Singapore Pte. Ltd.; BBVA Bancomer, S.A.; BNP Securities Services, Milan Branch; BMO Harris Bank N.A.; Citibank Europe plc; Skandinaviska Enskilda Banken AB (including select branches)."
+Notes/Legal Notes,Data,Legal Notes,"IB acts as agent or riskless principal in foreign currency exchange transactions and as riskless principal in spot precious metals transactions.  Such transactions are executed against an IB affiliate or a third party, which acts as principal in such transactions and may have a long or short position and may have profited or lost in connection with the transaction.  Foreign currency exchange and spot precious metals transactions executed by Customer through IB are not regulated or overseen by the SEC or the CFTC."
+Notes/Legal Notes,Data,Legal Notes,"Trades marked with the exchange indicator of TMBR were effected by IB as agent through a market making affiliate, which acted as principal in the transaction and may have a long or short position in the security and may have profited or lost in connection with the transaction."
+Notes/Legal Notes,Data,Legal Notes,"All VWAP trades are effected pursuant to an average price formula based on a reference price provided by a third-party data provider. Additional information and reference prices are available upon request. IB, as agent, effects VWAP transactions through a market making affiliate, which acts as principal in such transactions and may have a long or short position in the security and may have profited or lost in connection with the transaction."
+Notes/Legal Notes,Data,Legal Notes,"IB accepts liquidity rebates or other order flow payments from Alternative Trading Systems, market makers and exchanges for certain orders in stocks. IB receives payment for some option orders pursuant to exchange-mandated marketing fee programs or other arrangements. The source and nature of any compensation received by IB in connection with any transaction is available upon written request of the customer. For further information, check the IB website and the Order Routing and Payment for Order Flow Disclosure provided when you opened your account and annually or email help@interactivebrokers.com.  "
+Notes/Legal Notes,Data,Legal Notes,"For security futures trades, if not already indicated on this statement, information about the time of any transaction, the identity of the counterparty to the transaction, and whether IB is acting as agent or principal, as agent for the counterparty, as agent for both parties to the contract, or as principal, and if acting as principal, whether the transaction was a block transaction or an exchange for physicals transaction, will be available upon written request of the customer."
+Notes/Legal Notes,Data,Legal Notes,Customer is requested to promptly advise Interactive Brokers of any material change in Customer's investment objectives or financial situation.
+Notes/Legal Notes,Data,Legal Notes,"A financial statement of Interactive Brokers LLC is available for your personal inspection at www.interactivebrokers.com or at its offices, or a copy of it will be mailed upon your written request."
+Notes/Legal Notes,Data,Legal Notes,"For trades executed on either the Australian Stock Exchange Ltd (""ASX"") or Chi-X Australia Pty Ltd (""Chi-X""), this confirmation is issued subject to: (i) the directions, decisions and requirements of the Market Operator, the relevant Market Integrity Rules, the relevant Market Operating Rules, the Clearing Rules and where relevant, the Settlement Rules; (ii) the customs and usages of the relevant Market; and (iii) the correction of errors and omissions. Interactive Brokers LLC (ARBN: 091191141, AFSL: 245574, Participant on Chi-X Australia)(""IB"") is not a participant on the ASX, and will route orders to the ASX through its affiliate, Timber Hill Australia Pty Ltd (ABN 25079993534, AFSL: 244380, Participant on the ASX)(""THA"") who executes such orders. Your ASX and Chi-x Australia trades will be cleared through ABN Amro Clearing Sydney Pty Ltd, an ACH participant. If your transaction was a crossing transaction, IB may have either acted on behalf of (i) both the buyer and seller of this transaction, or (ii) on behalf of the buyer or seller on one side of the transaction and act as Principal on the other side. Under the Corporations Act 2001, where IB enters into an exchange traded derivatives on a customer's behalf, IB is regarded as having issued the derivative to the customer."
+Notes/Legal Notes,Data,Legal Notes,"For All Options Trades Executed on the Stock Exchange of Hong Kong (""SEHK""): (a) Options can involve a high degree of risk and may not be suitable for every investor. Investors should ensure they understand those risks before participating in the options market. (b) All options contracts executed on the SEHK were executed by Timber Hill Securities Hong Kong on behalf of Interactive Brokers LLC. (c) In the event of a default committed by Interactive Brokers LLC resulting in the client suffering any pecuniary loss, the client shall have a right to claim under the Investor Compensation Fund established under the Hong Kong Securities and Futures Ordinance, subject to the terms of the Investor Compensation Fund from time to time. (d) All Exchange Traded Options Business made for or on behalf of a client shall be subject to the relevant provisions of the constitution, Rules of The Stock Exchange of Hong Kong Limited (""SEHK Rules""), regulations, the Articles, customs and usages of SEHK, the Options Trading Rules, the Clearing Rules of SEOCH, the CCASS Rules and the laws of Hong Kong, which shall be binding on both Interactive Brokers LLC and the client."
+Notes/Legal Notes,Data,Legal Notes,"Deposits held away from Interactive Brokers LLC may not qualify under SIPC protection.  Also, futures and options on futures are not covered by SIPC."
+Notes/Legal Notes,Data,,SIPC Member

@@ -8,6 +8,23 @@ on:
   push:
 
 jobs:
+  test-dobkap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.20.0
+      
+      - name: Install NPM dependencies
+        working-directory: ./dobkap
+        run: npm install
+      
+      - name: Test
+        working-directory: ./dobkap
+        run: npm run test
+
   test-dobkapapp:
     runs-on: ubuntu-latest
     steps:

@@ -1,0 +1,7 @@
+Statement,Header,Field Name,Field Value
+Statement,Data,BrokerAddress,"Two Pickwick Plaza, Greenwich, CT 06830"
+Statement,Data,Period,"Feburary 03, 2023"
+Interest,Header,Currency,Date,Description,Amount
+Interest,Data,EUR,2023-02-03,EUR Credit Interest for Jan-2023,12.34
+Interest,Data,Total,,,12.34
+Notes/Legal Notes,Data,,SIPC Member

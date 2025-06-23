@@ -1,0 +1,10 @@
+Statement,Header,Field Name,Field Value
+Statement,Data,BrokerAddress,"Two Pickwick Plaza, Greenwich, CT 06830"
+Statement,Data,Period,"January 12, 2023"
+Dividends,Header,Currency,Date,Description,Amount
+Dividends,Data,EUR,2023-01-12,ABC(SG0000123456) Cash Dividend EUR 0.30 per Share (Ordinary Dividend),60.0
+Dividends,Data,Total,,,60.0
+Withholding Tax,Header,Currency,Date,Description,Amount,Code
+Withholding Tax,Data,EUR,2023-01-12,ABC(SG0000123456) Cash Dividend EUR 0.30 per Share - SG Tax,-6.00,
+Withholding Tax,Data,Total,,,-6.00,
+Notes/Legal Notes,Data,,SIPC Member

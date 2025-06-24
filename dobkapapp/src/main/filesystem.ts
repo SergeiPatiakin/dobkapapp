@@ -37,7 +37,7 @@ export const getFilingPath = (id: number) => path.join(getFilingsDir(), `${id}.x
 
 // technical conf
 export const getTechnicalConfPath = () => path.join(app.getPath('userData'), 'technical-conf.json')
-const getDefaultTechnicalConf = (): TechnicalConf => ({
+export const getDefaultTechnicalConf = (): TechnicalConf => ({
   mexicoBdmToken: '',
   holidayConf: {
     holidayRangeStart: '2020-01-01',

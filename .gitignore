@@ -85,5 +85,7 @@ jspm_packages/
 # Electron-Forge
 out/
 
+dobkapapp/holiday-data.json
+
 # Developer untracked directory
 untracked/

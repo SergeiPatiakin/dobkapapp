@@ -23,7 +23,7 @@ const nbsCurrencyCodeMapping: Map<string, CurrencyCode> = new Map([
 export const nbsSupportedCurrencies = [...nbsCurrencyCodeMapping.values()]
 
 export const nbsCurrencyService = async (day: NaiveDate, currencyCode: CurrencyCode) => {
-  let url = `https://webappcenter.nbs.rs/WebApp/ExchangeRate/ExchangeRate?isSearchExecuted=true&Date=${day.format('DD.MM.YYYY')}&ExchangeRateListTypeID=3`
+  let url = `https://webappcenter.nbs.rs/ExchangeRateWebApp/ExchangeRate/IndexByDate?isSearchExecuted=true&Date=${day.format('DD.MM.YYYY')}&ExchangeRateListTypeID=3`
   const result = await got.get(url, {
     // headers: {
     //   Cookie: `JSESSIONID=${jsessionid}`
@@ -32,7 +32,7 @@ export const nbsCurrencyService = async (day: NaiveDate, currencyCode: CurrencyC
   })
 
 
-  const matches = result.body.match(new RegExp("/WebApp/ExchangeRate/ExchangeRate/Download\\?ExchangeRateListID=(?:[0-9a-f\\-]{36})&exchangeRateListTypeID=3&ExchangeRateListTypeName=srednjiKurs&Format=xml"))
+  const matches = result.body.match(new RegExp("/ExchangeRateWebApp/ExchangeRate/Download\\?ExchangeRateListID=(?:[0-9a-f\\-]{36})&.*&Format=xml"))
   if (matches === null) {
     throw Error('NBS XML URL not found')
   }

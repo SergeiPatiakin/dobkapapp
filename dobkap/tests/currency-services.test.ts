@@ -4,11 +4,11 @@ import { toNaiveDate } from '../src/dates'
 import { CurrencyCode } from '../src/data-types'
 
 describe('Currency services', () => {
-  it.skip('nbsCurrencyService end-to-end', async () => {
+  it('nbsCurrencyService end-to-end', async () => {
     const rate = await nbsCurrencyService(toNaiveDate('2020-07-16'), CurrencyCode.EUR)
     expect(rate).toBeCloseTo(117.595, 3)
   })
-  it.skip('createCurrencyService end-to-end for EUR', async () => {
+  it('createCurrencyService end-to-end for EUR', async () => {
     const currencyService = createCurrencyService({
       apiTokens: {
         mexicoBdmToken: '',
@@ -18,7 +18,7 @@ describe('Currency services', () => {
     const rate = await currencyService(toNaiveDate('2020-07-16'), CurrencyCode.EUR)
     expect(rate).toBeCloseTo(117.595, 3)
   })
-  it.skip('createCurrencyService end-to-end for SGD', async () => {
+  it('createCurrencyService end-to-end for SGD', async () => {
     const currencyService = createCurrencyService({
       apiTokens: {
         mexicoBdmToken: '',
@@ -34,7 +34,7 @@ describe('Currency services', () => {
     // SGD rate should be calculated by multiplying the NBS USD rate by the IBKR fallback rate
     expect(rate).toBeCloseTo(103.0902 * 0.72, 3)
   })
-  it.skip('createCurrencyService end-to-end for MXN with fallback', async () => {
+  it('createCurrencyService end-to-end for MXN with fallback', async () => {
     const currencyService = createCurrencyService({
       apiTokens: {
         mexicoBdmToken: '',

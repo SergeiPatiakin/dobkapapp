@@ -45,13 +45,14 @@ const FilingsRow = (props: FilingsRowProps) => {
   const queryClient = useQueryClient()
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<HTMLElement | null>(null)
   const menuOpen = Boolean(menuAnchorEl)
-  return <TableRow>
+  return <TableRow style={{ cursor: 'pointer'}} hover onClick={props.openFilingEditDialog}>
     <TableCell>{props.filing.id}</TableCell>
     <TableCell>
       <FormControl size="small">
         <Select
           value={props.filing.status}
           sx={{ minWidth: 90 }}
+          onClick={e => { e.stopPropagation() }}
           onChange={async e => {
             const newStatus = e.target.value as FilingStatus
             await ipcContextApi.updateFiling({...props.filing, status: newStatus})
@@ -71,12 +72,16 @@ const FilingsRow = (props: FilingsRowProps) => {
     <TableCell align="right">{props.filing.taxPaymentReference || '-'}</TableCell>
     <TableCell align="right">
       <ButtonGroup>
-        <Button onClick={e => { setMenuAnchorEl(e.currentTarget) }}>
+        <Button onClick={e => {
+            e.stopPropagation()
+            setMenuAnchorEl(e.currentTarget)
+          }}>
           Actions
         </Button>
         <Menu
           open={menuOpen}
           anchorEl={menuAnchorEl}
+          onClick={e => { e.stopPropagation() }}
           onClose={() => setMenuAnchorEl(null)}
           anchorOrigin={{
             vertical: 'bottom',
@@ -88,7 +93,8 @@ const FilingsRow = (props: FilingsRowProps) => {
           }}
         >
           <MenuItem
-            onClick={async () => {
+            onClick={async e => {
+              e.stopPropagation()
               await ipcContextApi.exportFiling(props.filing.id)
               setMenuAnchorEl(null)
             }}
@@ -98,7 +104,8 @@ const FilingsRow = (props: FilingsRowProps) => {
             </ListItemIcon>
             <ListItemText>Save As...</ListItemText>
           </MenuItem>
-          <MenuItem onClick={() => {
+          <MenuItem onClick={e => {
+            e.stopPropagation()
             props.openFilingEditDialog()
             setMenuAnchorEl(null)
           }}>
@@ -108,7 +115,8 @@ const FilingsRow = (props: FilingsRowProps) => {
             <ListItemText>Edit</ListItemText>
           </MenuItem>
           <MenuItem
-            onClick={async () => {
+            onClick={async e => {
+              e.stopPropagation()
               await ipcContextApi.deleteFiling(props.filing.id)
               setMenuAnchorEl(null)
             }}

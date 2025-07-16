@@ -16,7 +16,7 @@ export const TechnicalPage = (props: Props) => {
   return <Container>
     <Stack spacing={1}>
       <h2 style={{ marginBottom: 0}}>Technical</h2>
-      <TextField label="Mexico BDM token" value={mexicoBdmToken} onChange={e => setMexicoBdmToken(e.target.value)} />
+      <TextField label="Mexico BDM token" size="small" value={mexicoBdmToken} onChange={e => setMexicoBdmToken(e.target.value)} />
       <Alert severity="info">Adding a Banco De Mexico API token will enable current conversion for
         incomes received in the MXN currency. You can obtain a token <a
         href="#" onClick={() => {
@@ -24,7 +24,7 @@ export const TechnicalPage = (props: Props) => {
         }}>here</a>
       </Alert>
       <ButtonGroup>
-        <TextField label="Holidays data" disabled value={`${holidayConf.holidayRangeStart}:${holidayConf.holidayRangeEnd}`} />
+        <TextField label="Holidays data" size="small" disabled value={`${holidayConf.holidayRangeStart}:${holidayConf.holidayRangeEnd}`} />
         <Button variant="contained" onClick={async () => {
           const newHolidayConf = await ipcContextApi.importHolidayConf()
           if (newHolidayConf) {
@@ -33,7 +33,7 @@ export const TechnicalPage = (props: Props) => {
         }}>Import...</Button>
       </ButtonGroup>
       <Alert severity="info">
-        Serbia holiday data is needed to correctly calculate filing deadlines. If the holiday
+        Serbia public holiday data is needed to correctly calculate filing deadlines. If the holiday
         data range is insufficient, you can import a larger range from a JSON file
       </Alert>
       <ButtonGroup>

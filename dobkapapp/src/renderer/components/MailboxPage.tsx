@@ -26,10 +26,11 @@ export const MailboxPage = (props: Props) => {
   return <Container>
     <Stack spacing={1}>
       <h2 style={{ marginBottom: 0}}>Mailbox</h2>
-      <TextField label="Email Address" value={imapEmailAddress} onChange={e => setImapEmailAddress(e.target.value)} />
+      <TextField label="Email Address" size="small" value={imapEmailAddress} onChange={e => setImapEmailAddress(e.target.value)} />
       <TextField
         type={showPassword ? 'text' : 'password'}
         label="Email Password"
+        size="small"
         value={imapEmailPassword}
         onChange={e => setImapEmailPassword(e.target.value)}
         InputProps={{
@@ -50,10 +51,10 @@ export const MailboxPage = (props: Props) => {
           ipcContextApi.openUrl('https://support.google.com/mail/answer/185833?hl=en-GB')
         }}>Application Password</a> instead of your usual password
       </Alert>	
-      <TextField label="IMAP host" value={imapEmailHost} onChange={e => setImapEmailHost(e.target.value)} />
-      <TextField label="IMAP port" value={imapEmailPort} onChange={e => setImapEmailPort(e.target.value)} />
+      <TextField label="IMAP host" size="small" value={imapEmailHost} onChange={e => setImapEmailHost(e.target.value)} />
+      <TextField label="IMAP port" size="small" value={imapEmailPort} onChange={e => setImapEmailPort(e.target.value)} />
       <ButtonGroup>
-        <TextField label="From Date Filter" value={formatMailboxCursor(cursor)} disabled />
+        <TextField label="From Date Filter" size="small" value={formatMailboxCursor(cursor)} disabled />
         <Button variant="contained" onClick={() => {
           setCursor(decrementCursor(cursor))
         }}>

@@ -37,11 +37,11 @@ const UpsertImporterDialog = (props: UpsertDialogProps) => {
       <DialogContent>
         <h2 style={{ marginBottom: 0}}></h2>
         <Stack gap={1}>
-          <TextField label="Name" value={name} onChange={e => setName(e.target.value)} />
-          <TextField label="From filter" value={fromFilter} onChange={e => setFromFilter(e.target.value)} />
-          <TextField label="Subject filter" value={subjectFilter} onChange={e => setSubjectFilter(e.target.value)} />
-          <TextField label="Attachment regex" value={attachmentRegex} onChange={e => setAttachmentRegex(e.target.value)} />
-          <FormControl variant="outlined">
+          <TextField label="Name" size="small" value={name} onChange={e => setName(e.target.value)} />
+          <TextField label="From filter" size="small" value={fromFilter} onChange={e => setFromFilter(e.target.value)} />
+          <TextField label="Subject filter" size="small" value={subjectFilter} onChange={e => setSubjectFilter(e.target.value)} />
+          <TextField label="Attachment regex" size="small" value={attachmentRegex} onChange={e => setAttachmentRegex(e.target.value)} />
+          <FormControl variant="outlined" size="small">
             <InputLabel htmlFor="outlined-adornment-payment-notes">Payment Notes</InputLabel>
             <OutlinedInput
               id="outlined-adornment-payment-notes"

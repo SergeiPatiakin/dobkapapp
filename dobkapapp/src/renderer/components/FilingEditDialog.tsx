@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  InputLabel,
   MenuItem,
   Select,
   Stack,
@@ -16,6 +17,7 @@ import {
 import ipcContextApi from '../../renderer/ipc-context-api'
 import React, { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { Label } from '@mui/icons-material'
 
 type FilingEditDialogProps = {
   filing: Filing
@@ -36,8 +38,17 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
     <DialogContent>
       <p style={{ marginBottom: 0}}></p>
       <Stack gap={1}>
+        <TextField
+          size="small"
+          style={{ width: 400 }}
+          disabled
+          label="ID"
+          value={props.filing.id}
+          onChange={e => setPaymentReference(e.target.value)}
+        />
         <FormControl size="small">
-          <Select
+          <InputLabel>Status</InputLabel>
+          <Select label="Status"
             value={filingStatus}
             sx={{ minWidth: 90 }}
             onChange={e => setFilingStatus(e.target.value as FilingStatus)}>
@@ -47,13 +58,7 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
           </Select>
         </FormControl>
         <TextField
-          style={{ width: 400 }}
-          disabled
-          label="ID"
-          value={props.filing.id}
-          onChange={e => setPaymentReference(e.target.value)}
-        />
-        <TextField
+          size="small"
           style={{ width: 400 }}
           disabled
           label="Tax Payable"
@@ -61,6 +66,7 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
           onChange={e => setPaymentReference(e.target.value)}
         />
         <TextField
+          size="small"
           style={{ width: 400 }}
           label="Payment Reference"
           value={paymentReference}

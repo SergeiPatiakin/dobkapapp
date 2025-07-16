@@ -22,9 +22,9 @@ export const TaxpayerProfilePage = (props: Props) => {
     <Stack spacing={1}>
       <h2 style={{ marginBottom: 0}}>Taxpayer</h2>
       <Alert severity="warning">These details will be inserted into each filing</Alert>
-      <TextField label="JMBG" value={jmbg} onChange={e => setJmbg(e.target.value)} />
-      <TextField label="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} />
-      <FormControl variant="outlined">
+      <TextField label="JMBG" size="small" value={jmbg} onChange={e => setJmbg(e.target.value)} />
+      <TextField label="Full Name" size="small" value={fullName} onChange={e => setFullName(e.target.value)} />
+      <FormControl variant="outlined" size="small">
         <InputLabel htmlFor="outlined-adornment-street-address">Street Address</InputLabel>
         <OutlinedInput
           id="outlined-adornment-street-address"
@@ -42,7 +42,7 @@ export const TaxpayerProfilePage = (props: Props) => {
           }
         />
       </FormControl>
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" size="small">
         <InputLabel htmlFor="outlined-adornment-opstina-code">Opština Code</InputLabel>
         <OutlinedInput
           id="outlined-adornment-opstina-code"
@@ -60,8 +60,8 @@ export const TaxpayerProfilePage = (props: Props) => {
           }
         />
       </FormControl>
-      <TextField label="Phone Number" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} />
-      <TextField label="Contact Email Address" value={filingEmailAddress} onChange={e => setFilingEmailAddress(e.target.value)} />
+      <TextField label="Phone Number" size="small" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} />
+      <TextField label="Contact Email Address" size="small" value={filingEmailAddress} onChange={e => setFilingEmailAddress(e.target.value)} />
       <ButtonGroup>
         <Button variant="contained" onClick={async () => {
           await ipcContextApi.updateTaxpayerProfile({

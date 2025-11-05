@@ -1,0 +1,4 @@
+html {
+  /* Prevent overscroll */
+  overscroll-behavior: none;
+}

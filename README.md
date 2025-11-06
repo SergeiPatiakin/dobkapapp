@@ -18,11 +18,8 @@ produce PP-OPO XML tax filings ready to be uploaded to ePorezi.
 ### Tax code features
   - Handles withholding tax deductions
   - Calculates filing/payment deadlines based on weekends and public holidays
-  - Supports multiple currencies by scraping exchange rates off the NBS public website
-  - Supports SGD currency by calculating a cross rate (scraping the NBS public website and
-  using the Monetary Authoritary of Singapore API)
-  - Supports MXN currency by calculating a cross rate (scraping the NBS public website and
-  using the Banco de Mexico API)
+  - Supports multiple currencies by scraping exchange rates off the NBS public website and using
+cross rates from statements
 
 ### Platforms
   - Windows x64

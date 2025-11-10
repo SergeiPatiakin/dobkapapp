@@ -100,6 +100,7 @@ pub async fn get_exchange_rate(
             "Could not find USD exchange rate in statement",
         ));
     };
+    println!("DBGG {curbase} {usdbase} {usdrsd}");
     return Ok(curbase / usdbase * usdrsd);
 }
 
@@ -111,10 +112,34 @@ mod tests {
 
     // Live test against NBS site
     #[tokio::test]
-    async fn test_nbs_exchange_rate() {
+    async fn test_get_nbs_exchange_rate() {
         let rate = get_nbs_exchange_rate(&parse_iso("2020-07-16").unwrap(), "EUR")
             .await
             .unwrap();
         assert!(rate > 117.5945 && rate < 117.5955);
+    }
+
+    // Live test against NBS site
+    #[tokio::test]
+    async fn test_get_exchange_rate() {
+        let rate = get_exchange_rate(
+            &parse_iso("2025-11-06").unwrap(),
+            "MXN",
+            &[
+                ExchangeRateInfo {
+                    date: parse_iso("2025-11-06").unwrap(),
+                    currency_code: "MXN".into(),
+                    currency_to_base_currency_rate: 0.0465,
+                },
+                ExchangeRateInfo {
+                    date: parse_iso("2025-11-06").unwrap(),
+                    currency_code: "USD".into(),
+                    currency_to_base_currency_rate: 0.8646,
+                },
+            ],
+        )
+        .await
+        .unwrap();
+        assert!(rate > 5.475 && rate < 5.485, "{rate}");
     }
 }

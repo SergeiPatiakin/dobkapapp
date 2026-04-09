@@ -1,4 +1,4 @@
-import { formatRsdcAmount } from './helpers'
+import { formatRsdcAmount, getPaymentQrUri } from './helpers'
 import { Filing, FilingStatus } from './ipc-types'
 import {
   Button,
@@ -27,6 +27,7 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
   const queryClient = useQueryClient()
   const [filingStatus, setFilingStatus] = useState(props.filing.status)
   const [paymentReference, setPaymentReference] = useState(props.filing.taxPaymentReference)
+  const [paymentQrUri, setPaymentQrUri] = useState<string | null>(null)
   return <Dialog
       open
       onClose={props.onClose}
@@ -80,6 +81,14 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
     </DialogContent>
     <DialogActions>
       <ButtonGroup>
+      <Button disabled={!paymentReference} onClick={async () => {
+        if (paymentQrUri !== null) {
+          setPaymentQrUri(null)
+        } else {
+          const paymentQrUri = await getPaymentQrUri(props.filing.taxPayable, paymentReference)
+          setPaymentQrUri(paymentQrUri)
+        }
+      }}>Payment QR</Button>
       <Button onClick={props.onClose}>Cancel</Button>
       <Button variant="contained" onClick={async () => {
         await invoke('update_filing', { filing: {
@@ -94,5 +103,8 @@ export const FilingEditDialog = (props: FilingEditDialogProps) => {
       </Button>
       </ButtonGroup>
     </DialogActions>
+    {(paymentQrUri !== null) && <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+        <img height="200px" width="200px" src={paymentQrUri} />
+      </div>}
   </Dialog>
 }

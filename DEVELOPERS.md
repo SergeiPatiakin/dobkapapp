@@ -23,3 +23,9 @@ rm ~/Library/Application\ Support/dobkapapp/db.sqlite
 ```bash
 rm ~/AppData/Roaming/dobkapapp/db.sqlite
 ```
+
+## Bumping dobkapapp version
+Make sure you cover the following locations:
+- `src-tauri/Cargo.toml`
+- `src-tauri/Cargo.lock`
+- `src-tauri/tauri.conf.json`

@@ -38,10 +38,13 @@ jobs:
             args: '--target aarch64-apple-darwin'
           - platform: 'windows-latest'
             args: ''
+          - platform: 'ubuntu-22.04'
+            args: ''
 
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -53,6 +56,20 @@ jobs:
         with:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin' || '' }}
+
+      - name: Install desktop library dependencies
+        if: ${{ matrix.platform == 'ubuntu-22.04' }}
+        run: |
+          sudo apt update
+          sudo apt install libwebkit2gtk-4.1-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libxdo-dev \
+            libssl-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
 
       - name: Install frontend dependencies
         run: npm ci
@@ -73,3 +90,10 @@ jobs:
           name: windows-amd64-binary
           path: src-tauri/target/release/bundle/nsis/**.exe
         if: ${{ matrix.platform == 'windows-latest' }}
+
+      - name: Upload Linux-AppImage binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-amd64-appimage
+          path: src-tauri/target/release/bundle/appimage/**.AppImage
+        if: ${{ matrix.platform == 'ubuntu-22.04' }}

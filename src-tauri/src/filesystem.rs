@@ -73,97 +73,10 @@ pub fn update_technical_conf(
     Ok(())
 }
 
-fn get_default_technical_conf() -> TechnicalConf {
-    TechnicalConf {
-        holiday_conf: HolidayConf {
-            holiday_range_start: "2020-01-01".into(),
-            holiday_range_end: "2026-12-31".into(),
-            holidays: vec![
-                "2020-01-01".into(),
-                "2020-01-02".into(),
-                "2020-01-07".into(),
-                "2020-02-15".into(),
-                "2020-02-16".into(),
-                "2020-02-17".into(),
-                "2020-04-17".into(),
-                "2020-04-18".into(),
-                "2020-04-19".into(),
-                "2020-04-20".into(),
-                "2020-05-01".into(),
-                "2020-05-02".into(),
-                "2020-11-11".into(),
-                "2021-01-01".into(),
-                "2021-01-02".into(),
-                "2021-01-07".into(),
-                "2021-02-15".into(),
-                "2021-02-16".into(),
-                "2021-04-30".into(),
-                "2021-05-03".into(),
-                "2021-11-11".into(),
-                "2022-01-01".into(),
-                "2022-01-02".into(),
-                "2022-01-03".into(),
-                "2022-01-07".into(),
-                "2022-02-15".into(),
-                "2022-02-16".into(),
-                "2022-04-22".into(),
-                "2022-04-23".into(),
-                "2022-04-24".into(),
-                "2022-04-25".into(),
-                "2022-05-01".into(),
-                "2022-05-02".into(),
-                "2022-05-03".into(),
-                "2022-11-11".into(),
-                "2023-01-01".into(),
-                "2023-01-02".into(),
-                "2023-01-03".into(),
-                "2023-02-15".into(),
-                "2023-02-16".into(),
-                "2023-04-14".into(),
-                "2023-04-17".into(),
-                "2023-05-01".into(),
-                "2023-05-02".into(),
-                "2023-11-11".into(),
-                "2024-01-01".into(),
-                "2024-01-02".into(),
-                "2024-01-07".into(),
-                "2024-02-15".into(),
-                "2024-02-16".into(),
-                "2024-05-01".into(),
-                "2024-05-02".into(),
-                "2024-05-03".into(),
-                "2024-05-06".into(),
-                "2024-11-11".into(),
-                "2025-01-01".into(),
-                "2025-01-02".into(),
-                "2025-01-07".into(),
-                "2025-02-15".into(),
-                "2025-02-16".into(),
-                "2025-04-18".into(),
-                "2025-04-21".into(),
-                "2025-05-01".into(),
-                "2025-05-02".into(),
-                "2025-11-11".into(),
-                "2026-01-01".into(),
-                "2026-01-02".into(),
-                "2026-01-07".into(),
-                "2026-02-16".into(),
-                "2026-02-17".into(),
-                "2026-04-10".into(),
-                "2026-04-13".into(),
-                "2026-05-01".into(),
-                "2026-11-11".into(),
-                "2027-01-01".into(),
-                "2027-01-07".into(),
-                "2027-02-15".into(),
-                "2027-02-16".into(),
-                "2027-04-30".into(),
-                "2027-05-03".into(),
-                "2027-05-04".into(),
-                "2027-11-11".into(),
-            ],
-        },
-    }
+pub fn get_default_technical_conf() -> TechnicalConf {
+    let holiday_conf: HolidayConf =
+        serde_json::from_str(include_str!("../holiday-data.json")).unwrap();
+    TechnicalConf { holiday_conf }
 }
 
 pub fn get_filing_content(app_handle: &AppHandle, filing_id: i32) -> DkaResult<Vec<u8>> {
@@ -207,6 +120,19 @@ pub fn save_report_content(
     let mut file = File::create_new(get_report_path(app_handle, report_id)?)?;
     file.write_all(report_content)?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::filesystem::get_default_technical_conf;
+    #[test]
+    fn test_technical_conf_smoke() {
+        let technical_conf = get_default_technical_conf();
+        assert!(technical_conf
+            .holiday_conf
+            .holidays
+            .contains(&"2027-01-01".to_string()))
+    }
 }
 
 // TODO: "unit test" to write technical conf to file

@@ -91,6 +91,14 @@ jobs:
           path: src-tauri/target/release/bundle/nsis/**.exe
         if: ${{ matrix.platform == 'windows-latest' }}
 
+      - name: Upload holiday data file
+        uses: actions/upload-artifact@v4
+        with:
+          name: holiday-data.json
+          path: src-tauri/holiday-data.json
+        # We only need to upload this once in the whole build matrix
+        if: ${{ matrix.platform == 'windows-latest' }}
+
       - name: Upload Linux-AppImage binary
         uses: actions/upload-artifact@v4
         with:

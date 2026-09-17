@@ -1,3 +1,7 @@
+## Prerequisites
+- Rust + Cargo
+- Node.js + npm
+
 ## Install
 
 ```bash

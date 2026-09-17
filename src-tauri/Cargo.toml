@@ -1,8 +1,8 @@
 [package]
 name = "dobkapapp"
 version = "0.8.1"
-description = "A Tauri App"
-authors = ["you"]
+description = "Desktop app for automating passive income tax filings in Serbia"
+authors = ["Dobkapapp contributors"]
 edition = "2021"
 
 [lib]

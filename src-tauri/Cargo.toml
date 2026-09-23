@@ -1,6 +1,6 @@
 [package]
 name = "dobkapapp"
-version = "0.8.1"
+version = "0.9.0"
 description = "Desktop app for automating passive income tax filings in Serbia"
 authors = ["Dobkapapp contributors"]
 edition = "2021"
